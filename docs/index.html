@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexoIA — Panel de Aprobación</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#06100A;--bg2:#0A1810;--surface:#112218;--surface2:#193826;
+  --g:#4DBA87;--g2:#2E9E67;--g3:#1A7A4A;
+  --w:#EFF9F4;--w2:#B8D8C5;--m:#5E8870;--a:#E8A838;--r:#E05252;
+  --fs:'Fraunces',Georgia,serif;--fb:'DM Sans',sans-serif;--fm:'DM Mono',monospace;
+}
+body{font-family:var(--fb);background:var(--bg);color:var(--w);min-height:100vh}
+/* HEADER */
+.hd{background:var(--bg2);border-bottom:1px solid rgba(77,186,135,.12);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:100}
+.hd-l{display:flex;align-items:center;gap:12px}
+.hd-ico{width:32px;height:32px;background:var(--g);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.hd-brand{font-family:var(--fs);font-size:18px;font-weight:700;color:var(--w)}
+.hd-brand em{color:var(--g);font-style:normal}
+.hd-sub{font-size:12px;color:var(--m);font-family:var(--fm)}
+.hd-stats{display:flex;gap:16px;font-size:12px;font-family:var(--fm)}
+.hd-stat{background:rgba(77,186,135,.08);border:1px solid rgba(77,186,135,.15);padding:6px 14px;border-radius:8px;color:var(--w2)}
+.hd-stat em{color:var(--g);font-style:normal}
+/* MAIN */
+.mn{max-width:1000px;margin:0 auto;padding:32px 24px}
+.empty{text-align:center;padding:80px 20px;color:var(--m)}
+.empty-ico{font-size:48px;margin-bottom:16px}
+.empty h2{font-family:var(--fs);font-size:24px;font-weight:400;color:var(--w2);margin-bottom:8px}
+.empty p{font-size:14px;line-height:1.6}
+/* CONTENT CARD */
+.cc{background:var(--surface);border:1px solid rgba(77,186,135,.12);border-radius:14px;margin-bottom:20px;overflow:hidden}
+.cc-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--bg2);border-bottom:1px solid rgba(77,186,135,.08)}
+.cc-tag{font-size:9px;letter-spacing:2px;padding:3px 10px;border-radius:10px;font-family:var(--fm)}
+.cc-tag.post{background:rgba(77,186,135,.12);color:var(--g)}
+.cc-tag.carrusel{background:rgba(232,168,56,.12);color:var(--a)}
+.cc-tag.story{background:rgba(100,150,255,.12);color:#8aabff}
+.cc-tag.reel{background:rgba(224,82,82,.12);color:var(--r)}
+.cc-date{font-size:11px;color:var(--m);font-family:var(--fm)}
+.cc-body{padding:18px}
+.cc-caption{font-size:14px;color:var(--w2);line-height:1.7;margin-bottom:12px;white-space:pre-line}
+.cc-hashtags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.cc-htag{font-size:10px;color:var(--g2);background:rgba(77,186,135,.06);padding:3px 8px;border-radius:8px;font-family:var(--fm)}
+.cc-visual{background:var(--bg);border:1px solid rgba(77,186,135,.08);border-radius:8px;padding:12px 14px;margin-bottom:12px;font-size:13px;color:var(--m);line-height:1.6}
+.cc-visual strong{color:var(--w2)}
+/* SLIDES PREVIEW */
+.slides-row{display:flex;gap:8px;overflow-x:auto;padding:8px 0;margin-bottom:12px}
+.slide-mini{min-width:120px;background:var(--bg);border:1px solid rgba(77,186,135,.1);border-radius:8px;padding:12px;font-size:10px;color:var(--m);text-align:center;line-height:1.4}
+.slide-mini em{color:var(--g2);font-style:normal;display:block;margin-bottom:4px}
+/* CC BOTTOM */
+.cc-bot{display:flex;gap:10px;padding:12px 18px;border-top:1px solid rgba(77,186,135,.08);flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:500;border:none;cursor:pointer;font-family:var(--fb);transition:all .2s;text-decoration:none}
+.btn-ok{background:var(--g);color:var(--bg)}.btn-ok:hover{background:#6DCFA0}
+.btn-no{background:rgba(224,82,82,.12);color:var(--r);border:1px solid rgba(224,82,82,.2)}.btn-no:hover{background:rgba(224,82,82,.2)}
+.btn-edit{background:rgba(232,168,56,.1);color:var(--a);border:1px solid rgba(232,168,56,.15)}.btn-edit:hover{background:rgba(232,168,56,.2)}
+/* STATUS BADGE */
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:4px 12px;border-radius:10px;font-family:var(--fm)}
+.badge.pending{background:rgba(232,168,56,.1);color:var(--a);border:1px solid rgba(232,168,56,.15)}
+.badge.approved{background:rgba(77,186,135,.1);color:var(--g);border:1px solid rgba(77,186,135,.15)}
+.badge.published{background:rgba(100,150,255,.1);color:#8aabff;border:1px solid rgba(100,150,255,.15)}
+.badge.rejected{background:rgba(224,82,82,.1);color:var(--r);border:1px solid rgba(224,82,82,.15)}
+/* FILTERS */
+.filters{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.filter{font-size:12px;padding:7px 16px;border-radius:20px;border:1px solid rgba(77,186,135,.15);background:transparent;color:var(--m);cursor:pointer;font-family:var(--fb);transition:all .2s}
+.filter:hover{border-color:var(--g);color:var(--w2)}
+.filter.active{background:rgba(77,186,135,.1);border-color:var(--g);color:var(--g)}
+@media(max-width:600px){
+  .hd{flex-direction:column;align-items:flex-start}
+  .hd-stats{width:100%}
+  .cc-bot{flex-direction:column}
+  .btn{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <div class="hd-l">
+    <div class="hd-ico"><svg width="16" height="16" viewBox="0 0 26 26" fill="none"><circle cx="7" cy="13" r="3" fill="#06100A"/><circle cx="19" cy="7" r="3" fill="#06100A"/><circle cx="19" cy="19" r="3" fill="#06100A"/><line x1="7" y1="13" x2="19" y2="7" stroke="#06100A" stroke-width="2"/><line x1="7" y1="13" x2="19" y2="19" stroke="#06100A" stroke-width="2"/><line x1="19" y1="7" x2="19" y2="19" stroke="#06100A" stroke-width="2"/></svg></div>
+    <div><div class="hd-brand">Nexo<em>IA</em></div><div class="hd-sub">Panel de Aprobación</div></div>
+  </div>
+  <div class="hd-stats">
+    <span class="hd-stat">⏳ <em id="count-pending">0</em> pendientes</span>
+    <span class="hd-stat">✅ <em id="count-approved">0</em> aprobados</span>
+    <span class="hd-stat">📅 <em id="next-date">—</em></span>
+  </div>
+</div>
+
+<div class="mn">
+  <div class="filters" id="filters">
+    <button class="filter active" data-filter="all">Todos</button>
+    <button class="filter" data-filter="post">Posts</button>
+    <button class="filter" data-filter="carrusel">Carruseles</button>
+    <button class="filter" data-filter="story">Stories</button>
+    <button class="filter" data-filter="reel">Reels</button>
+    <button class="filter" data-filter="pending">Pendientes</button>
+    <button class="filter" data-filter="approved">Aprobados</button>
+    <button class="filter" data-filter="published">Publicados</button>
+  </div>
+
+  <div id="content-list"></div>
+</div>
+
+<script>
+const GITHUB_USER = "santiago2009edu";
+const GITHUB_REPO = "nexoia-content";
+const GITHUB_BRANCH = "main";
+
+let allContent = [];
+
+async function loadContent() {
+  try {
+    const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/content/pending`;
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error("No content yet");
+    const files = await resp.json();
+    const contents = await Promise.all(
+      files.filter(f => f.name.endsWith(".json")).map(async f => {
+        const r = await fetch(f.download_url);
+        return r.json();
+      })
+    );
+    allContent = contents;
+  } catch(e) {
+    allContent = [];
+  }
+  render();
+}
+
+function render(filter = "all") {
+  const list = document.getElementById("content-list");
+  let items = allContent;
+  if (filter !== "all") {
+    items = items.filter(c => c.tipo === filter || c.estado === filter);
+  }
+  if (items.length === 0) {
+    list.innerHTML = `<div class="empty"><div class="empty-ico">🤖</div><h2>No hay contenido pendiente</h2><p>Esperando a que la IA genere nuevos posts, carruseles, stories y reels para @nexoia_cali.</p></div>`;
+  } else {
+    list.innerHTML = items.map(c => renderCard(c)).join("");
+  }
+  updateStats();
+}
+
+function renderCard(c) {
+  const tagClass = c.tipo === "carrusel" ? "carrusel" : c.tipo === "story" ? "story" : c.tipo === "reel" ? "reel" : "post";
+  const slidesHtml = c.contenido.carrusel_slides && c.contenido.carrusel_slides.length
+    ? `<div class="slides-row">${c.contenido.carrusel_slides.map((s, i) =>
+        `<div class="slide-mini"><em>Slide ${i+1}</em>${s}</div>`
+      ).join("")}</div>`
+    : "";
+  return `
+    <div class="cc" data-tipo="${c.tipo}" data-estado="${c.estado}">
+      <div class="cc-hd">
+        <div><span class="cc-tag ${tagClass}">${c.tipo.toUpperCase()}</span> <span class="badge ${c.estado}">● ${c.estado}</span></div>
+        <div class="cc-date">${c.fecha_generacion} → ${c.fecha_propuesta_publicacion} ${c.hora_propuesta}</div>
+      </div>
+      <div class="cc-body">
+        <div class="cc-caption">${c.contenido.caption}</div>
+        <div class="cc-hashtags">${(c.contenido.hashtags || []).map(h => `<span class="cc-htag">${h}</span>`).join("")}</div>
+        ${slidesHtml}
+        <div class="cc-visual"><strong>🎨 Visual:</strong> ${c.contenido.visual.descripcion}<br><strong>📐 ${c.contenido.visual.tamano}</strong></div>
+      </div>
+      <div class="cc-bot">
+        <button class="btn btn-ok" onclick="approve('${c.id}')">✅ Aprobar</button>
+        <button class="btn btn-no" onclick="reject('${c.id}')">❌ Rechazar</button>
+        <button class="btn btn-edit" onclick="edit('${c.id}')">✏️ Editar</button>
+      </div>
+    </div>`;
+}
+
+function updateStats() {
+  document.getElementById("count-pending").textContent = allContent.filter(c => c.estado === "pending").length;
+  document.getElementById("count-approved").textContent = allContent.filter(c => c.estado === "approved").length;
+  const next = allContent.find(c => c.estado === "approved");
+  document.getElementById("next-date").textContent = next ? `${next.fecha_propuesta_publicacion} ${next.hora_propuesta}` : "—";
+}
+
+function approve(id) {
+  const item = allContent.find(c => c.id === id);
+  if (!item) return;
+  item.estado = "approved";
+  render(document.querySelector(".filter.active")?.dataset?.filter || "all");
+}
+
+function reject(id) {
+  const item = allContent.find(c => c.id === id);
+  if (!item) return;
+  item.estado = "rejected";
+  render(document.querySelector(".filter.active")?.dataset?.filter || "all");
+}
+
+function edit(id) {
+  const item = allContent.find(c => c.id === id);
+  if (!item) return;
+  const nuevo = prompt("Edita el caption:", item.contenido.caption);
+  if (nuevo) item.contenido.caption = nuevo;
+  render(document.querySelector(".filter.active")?.dataset?.filter || "all");
+}
+
+document.getElementById("filters").addEventListener("click", e => {
+  if (e.target.classList.contains("filter")) {
+    document.querySelectorAll(".filter").forEach(f => f.classList.remove("active"));
+    e.target.classList.add("active");
+    render(e.target.dataset.filter);
+  }
+});
+
+loadContent();
+</script>
+</body>
+</html>
