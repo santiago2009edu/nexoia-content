@@ -13,13 +13,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
 
-      - name: Publicar
+      - name: Publicar y Commitar
         shell: bash
         env:
           TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
         run: |
+          set -x
           mkdir -p content/published
           for f in content/pending/*.json; do
             [ -f "$f" ] || continue
@@ -39,14 +40,8 @@ jobs:
             fi
             mv "$f" "content/published/$id.json"
           done
-
-      - name: Commit
-        env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
           git config user.name "Bot"
           git config user.email "bot@nexoia.cali"
-          git remote set-url origin https://x-access-token:${TOKEN}@github.com/santiago2009edu/nexoia-content
           git add -A
-          git status
-          git diff --staged --quiet || (git commit -m "Publicado" && git push)
+          git diff --staged --quiet || git commit -m "Publicado"
+          git push
