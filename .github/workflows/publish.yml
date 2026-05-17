@@ -2,24 +2,29 @@ name: Publicar contenido aprobado
 
 on:
   push:
+    branches: [main]
     paths:
-      - 'content/approved/**'
+      - 'content/pending/**'
 
 jobs:
-  publish:
+  process_approved:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Leer contenido aprobado
-        id: content
+      - name: Mover contenido aprobado a published/
         run: |
-          for file in content/approved/*.json; do
-            echo "Procesando $file"
-            # Aquí se conectará con Instagram Graph API
-            # Por ahora movemos a published/
-            mv "$file" "content/published/$(basename $file)"
+          for file in content/pending/*.json; do
+            [ -f "$file" ] || continue
+            estado=$(jq -r '.estado' "$file")
+            if [ "$estado" = "approved" ]; then
+              id=$(jq -r '.id' "$file")
+              tipo=$(jq -r '.tipo' "$file")
+              echo "✅ Publicando: $tipo - $id"
+              cp "$file" "content/published/$id.json"
+            fi
           done
 
       - name: Commit cambios
@@ -27,5 +32,5 @@ jobs:
           git config user.name "NexoIA Bot"
           git config user.email "nexoia.cali@gmail.com"
           git add content/published/
-          git commit -m "📸 Contenido publicado automáticamente" || true
+          git diff --staged --quiet || git commit -m "📸 Contenido marcado como publicado"
           git push
