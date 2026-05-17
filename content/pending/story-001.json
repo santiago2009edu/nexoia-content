@@ -1,0 +1,23 @@
+{
+  "id": "story-001",
+  "tipo": "story",
+  "fecha_generacion": "2026-05-16",
+  "fecha_propuesta_publicacion": "2026-05-17",
+  "hora_propuesta": "18:30",
+  "estado": "pending",
+  "plataforma": "instagram",
+  "contenido": {
+    "caption": "¿Cuándo fue tu última publicación en Instagram? 🤔\n\nResponde la encuesta:\n- Esta semana ✅\n- Hace 2 semanas 📅\n- Hace 1 mes+ 😬\n- ¿Qué es Instagram? 😅\n\nSi respondiste C o D... escríbenos. Te ayudamos.\n\n#NexoIA #Encuesta #Cali",
+    "hashtags": ["#NexoIA", "#Encuesta", "#Cali", "#Instagram"],
+    "visual": {
+      "descripcion": "Story vertical 9:16. Fondo #06100A con textura de puntos. Arriba: logo NexoIA + '@nexoia_cali'. Centro: pregunta grande en Fraunces itálica blanca. Abajo: 4 opciones de encuesta interactiva con barra verde #4DBA87.",
+      "tamano": "1080x1920",
+      "colores": {"fondo": "#06100A", "texto": "#EFF9F4", "acento": "#4DBA87"},
+      "elementos": ["Encuesta interactiva", "Logo NexoIA", "Pregunta central", "4 opciones"]
+    },
+    "story_elementos": {
+      "tipo": "encuesta",
+      "opciones": ["Esta semana ✅", "Hace 2 semanas 📅", "Hace 1 mes+ 😬", "¿Qué es Instagram? 😅"]
+    }
+  }
+}

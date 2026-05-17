@@ -1,0 +1,31 @@
+name: Publicar contenido aprobado
+
+on:
+  push:
+    paths:
+      - 'content/approved/**'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Leer contenido aprobado
+        id: content
+        run: |
+          for file in content/approved/*.json; do
+            echo "Procesando $file"
+            # Aquí se conectará con Instagram Graph API
+            # Por ahora movemos a published/
+            mv "$file" "content/published/$(basename $file)"
+          done
+
+      - name: Commit cambios
+        run: |
+          git config user.name "NexoIA Bot"
+          git config user.email "nexoia.cali@gmail.com"
+          git add content/published/
+          git commit -m "📸 Contenido publicado automáticamente" || true
+          git push
