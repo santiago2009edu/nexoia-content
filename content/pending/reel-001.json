@@ -4,16 +4,32 @@
   "fecha_generacion": "2026-05-16",
   "fecha_propuesta_publicacion": "2026-05-20",
   "hora_propuesta": "18:30",
-  "estado": "pending",
+  "estado": "approved",
   "plataforma": "instagram",
   "contenido": {
     "caption": "Mientras tú duermes, tu competencia publica. 🛌📱\n\nCon NexoIA tus redes trabajan 24/7.\n20 posts al mes con IA. Tú solo descansas.\n\n📩 nexoia.cali@gmail.com\n\n#ReelsCali #NexoIA #Automatizacion #NegociosCali #Emprendedor",
-    "hashtags": ["#ReelsCali", "#NexoIA", "#Automatizacion", "#NegociosCali", "#Emprendedor", "#Cali"],
+    "hashtags": [
+      "#ReelsCali",
+      "#NexoIA",
+      "#Automatizacion",
+      "#NegociosCali",
+      "#Emprendedor",
+      "#Cali"
+    ],
     "visual": {
       "descripcion": "Reel 15 segundos. Split screen: izquierda oscuro con persona durmiendo, derecha brillante con notificaciones llegando. Transición rápida a logo NexoIA. Música: trending Colombia.",
       "tamano": "1080x1920",
-      "colores": {"fondo": "#06100A", "texto": "#EFF9F4", "acento": "#4DBA87"},
-      "elementos": ["Split screen día/noche", "Notificaciones animadas", "Logo NexoIA final", "CTA"]
+      "colores": {
+        "fondo": "#06100A",
+        "texto": "#EFF9F4",
+        "acento": "#4DBA87"
+      },
+      "elementos": [
+        "Split screen día/noche",
+        "Notificaciones animadas",
+        "Logo NexoIA final",
+        "CTA"
+      ]
     },
     "reel_guion": "HOOK (0-3s): '¿Sabes qué pasa con tu Instagram mientras duermes?'\n\nPROBLEMA (3-8s): Pantalla en negro. 'Nada. Silencio total.' Sonido de reloj.\n\nSOLUCIÓN (8-13s): Aparece logo NexoIA con efecto glow. 'NexoIA publica por ti 20 veces al mes. Incluso de madrugada.'\n\nCTA (13-15s): 'nexoia.cali@gmail.com' con el lema 'Automatiza. Crece. Descansa.'"
   }
