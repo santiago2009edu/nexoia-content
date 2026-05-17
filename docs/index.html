@@ -121,10 +121,6 @@ async function api(path, opts = {}) {
 }
 
 async function loadContent() {
-  if (!TOKEN) {
-    TOKEN = prompt("Ingresa tu token de GitHub (se guarda en esta sesión):", "");
-    if (TOKEN) sessionStorage.setItem("gh_token", TOKEN);
-  }
   try {
     const resp = await api("/contents/content/pending");
     if (!resp.ok) throw new Error(`GitHub API respondió ${resp.status}: ${resp.statusText}`);
@@ -222,11 +218,13 @@ async function approve(id) {
     allContent = allContent.filter(c => c.data.id !== id);
     render(document.querySelector(".filter.active")?.dataset?.filter || "all");
   } else {
-    alert("Error al aprobar. Asegúrate de que el token tenga permisos de escritura (scope: repo).");
+    const errBody = await resp.text().catch(() => "");
+    alert(`Error ${resp.status} al aprobar:\n\n${errBody}\n\nVerifica que el token tenga scope "repo" y no esté expirado.`);
   }
 }
 
 async function reject(id) {
+  if (!await ensureToken()) return;
   const entry = allContent.find(c => c.data.id === id);
   if (!entry) return;
   const item = entry.data;
@@ -234,7 +232,7 @@ async function reject(id) {
   item.estado = "rejected";
 
   const content = btoa(unescape(encodeURIComponent(JSON.stringify(item, null, 2))));
-  await api(`/contents/content/pending/${file.name}`, {
+  const resp = await api(`/contents/content/pending/${file.name}`, {
     method: "PUT",
     body: JSON.stringify({
       message: `❌ Rechazado: ${item.tipo} - ${item.id}`,
@@ -243,8 +241,13 @@ async function reject(id) {
       branch: GITHUB_BRANCH
     })
   });
-  allContent = allContent.filter(c => c.data.id !== id);
-  render(document.querySelector(".filter.active")?.dataset?.filter || "all");
+  if (resp.ok) {
+    allContent = allContent.filter(c => c.data.id !== id);
+    render(document.querySelector(".filter.active")?.dataset?.filter || "all");
+  } else {
+    const errBody = await resp.text().catch(() => "");
+    alert(`Error ${resp.status} al rechazar:\n\n${errBody}`);
+  }
 }
 
 document.getElementById("filters").addEventListener("click", e => {
