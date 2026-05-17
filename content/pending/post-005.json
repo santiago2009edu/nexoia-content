@@ -4,16 +4,32 @@
   "fecha_generacion": "2026-05-16",
   "fecha_propuesta_publicacion": "2026-05-22",
   "hora_propuesta": "12:00",
-  "estado": "pending",
+  "estado": "approved",
   "plataforma": "instagram",
   "contenido": {
     "caption": "Restaurantes en Cali: ¿cuándo fue la última vez que publicaron algo en Instagram? 🍽️\n\nSi respondiste 'no me acuerdo'... tenemos que hablar.\n\nUn restaurante que publica seguido:\n• Atrae clientes nuevos todos los días\n• Muestra sus platos y ambiente\n• Genera antojo y visitas\n\nNosotros hacemos 20 posts/mes con IA para restaurantes como el tuyo.\nSolo mándanos las fotos de tus platos.\n\n📩 nexoia.cali@gmail.com\n\n#RestaurantesCali #ComidaCali #NexoIA #MarketingGastronomico #CaliColombia",
-    "hashtags": ["#RestaurantesCali", "#ComidaCali", "#NexoIA", "#MarketingGastronomico", "#CaliColombia", "#Emprendimiento"],
+    "hashtags": [
+      "#RestaurantesCali",
+      "#ComidaCali",
+      "#NexoIA",
+      "#MarketingGastronomico",
+      "#CaliColombia",
+      "#Emprendimiento"
+    ],
     "visual": {
       "descripcion": "Fondo oscuro #06100A. Una foto de un plato de comida (o icono de restaurante) iluminado con un foco. Texto grande: 'RESTAURANTES EN CALI' en verde. Subtítulo: 'Tu mejor plato merece ser visto.' Logo NexoIA y CTA abajo.",
       "tamano": "1080x1080",
-      "colores": {"fondo": "#06100A", "texto": "#EFF9F4", "acento": "#4DBA87"},
-      "elementos": ["Icono plato de comida", "Texto sectorial", "Llamado a restaurantes", "Logo NexoIA"]
+      "colores": {
+        "fondo": "#06100A",
+        "texto": "#EFF9F4",
+        "acento": "#4DBA87"
+      },
+      "elementos": [
+        "Icono plato de comida",
+        "Texto sectorial",
+        "Llamado a restaurantes",
+        "Logo NexoIA"
+      ]
     }
   }
 }
