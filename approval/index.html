@@ -127,17 +127,18 @@ async function loadContent() {
   }
   try {
     const resp = await api("/contents/content/pending");
-    if (!resp.ok) throw new Error("No content yet");
+    if (!resp.ok) throw new Error(`GitHub API respondió ${resp.status}: ${resp.statusText}`);
     allFiles = await resp.json();
-    const contents = await Promise.all(
-      allFiles.filter(f => f.name.endsWith(".json")).map(async f => {
+    const contents = [];
+    for (const f of allFiles.filter(f => f.name.endsWith(".json"))) {
+      try {
         const r = await fetch(f.download_url);
-        return { data: await r.json(), file: f };
-      })
-    );
+        if (r.ok) contents.push({ data: await r.json(), file: f });
+      } catch(_) { /* skip file if download fails */ }
+    }
     allContent = contents;
   } catch(e) {
-    document.getElementById("content-list").innerHTML = `<div class="empty"><div class="empty-ico">⚠️</div><h2 style="color:#e74c3c;">Error de conexión</h2><p style="color:#e74c3c;">${e.message}</p><p style="margin-top:12px;font-size:13px;">Revisa que tu token de GitHub tenga acceso al repo o que no hayas excedido el límite de solicitudes.</p></div>`;
+    document.getElementById("content-list").innerHTML = `<div class="empty"><div class="empty-ico">⚠️</div><h2 style="color:#e74c3c;">Error de conexión</h2><p style="color:#e74c3c;">${e.message}</p><p style="margin-top:12px;font-size:13px;">Revisa tu token de GitHub o intenta de nuevo más tarde.</p></div>`;
     allContent = [];
     return;
   }
