@@ -4,16 +4,31 @@
   "fecha_generacion": "2026-05-16",
   "fecha_propuesta_publicacion": "2026-05-24",
   "hora_propuesta": "18:30",
-  "estado": "pending",
+  "estado": "approved",
   "plataforma": "instagram",
   "contenido": {
     "caption": "¿Cuánto vale no estar en Instagram? 🤔\n\nHagamos cuentas:\n• Un cliente que te encuentra por redes: $X en venta\n• 10 clientes al mes que lleguen por Instagram\n• vs. $280K/mes que cuesta tener tus redes activas con IA\n\nLa cuenta es simple.\n\nMientras tú te preocupas por tu negocio, nosotros nos preocupamos por tu presencia digital.\n\n📩 nexoia.cali@gmail.com\n\n#ROI #InversionDigital #NexoIA #NegociosCali #MarketingQueVende",
-    "hashtags": ["#ROI", "#InversionDigital", "#NexoIA", "#NegociosCali", "#MarketingQueVende"],
+    "hashtags": [
+      "#ROI",
+      "#InversionDigital",
+      "#NexoIA",
+      "#NegociosCali",
+      "#MarketingQueVende"
+    ],
     "visual": {
       "descripcion": "Fondo oscuro #06100A. Una calculadora verde #4DBA87 en el centro. Texto grande: '$280K vs. Clientes nuevos' en blanco. Numeros apareciendo: '10 clientes/mes = ROI infinito'. Logo NexoIA.",
       "tamano": "1080x1080",
-      "colores": {"fondo": "#06100A", "texto": "#EFF9F4", "acento": "#4DBA87"},
-      "elementos": ["Calculadora como icono", "Comparación precio/valor", "Números grandes", "Logo NexoIA"]
+      "colores": {
+        "fondo": "#06100A",
+        "texto": "#EFF9F4",
+        "acento": "#4DBA87"
+      },
+      "elementos": [
+        "Calculadora como icono",
+        "Comparación precio/valor",
+        "Números grandes",
+        "Logo NexoIA"
+      ]
     }
   }
 }
