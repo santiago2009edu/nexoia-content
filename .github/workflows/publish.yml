@@ -13,87 +13,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Publicar en Instagram
-        env:
-          IG_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
-          IG_USER_ID: "17841439116274856"
+      - name: Publicar
         shell: bash
+        env:
+          TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
         run: |
-          set -x
           mkdir -p content/published
-          FAILED=0
-
-          for file in content/pending/*.json; do
-            [ -f "$file" ] || continue
-            estado=$(jq -r '.estado' "$file")
-            [ "$estado" = "approved" ] || continue
-
-            id=$(jq -r '.id' "$file")
-            tipo=$(jq -r '.tipo' "$file")
-
-            echo "=== Procesando $id ($tipo) ==="
-
-            if [ -n "$IG_TOKEN" ]; then
-              IMAGE_URL=$(jq -r '.image_url // empty' "$file")
-              if [ -n "$IMAGE_URL" ]; then
-                echo "Publicando en Instagram..."
-                CAPTION=$(jq -r '.contenido.caption' "$file")
-                HASHTAGS=$(jq -r '.contenido.hashtags | join(" ")' "$file")
-                CAPTION_FULL=$(printf "%s\n\n%s" "$CAPTION" "$HASHTAGS")
-
-                # Build JSON payload properly to avoid shell escaping issues
-                jq -n \
-                  --arg caption "$CAPTION_FULL" \
-                  --arg image_url "$IMAGE_URL" \
-                  --arg token "$IG_TOKEN" \
-                  '{
-                    caption: $caption,
-                    media_type: "IMAGE",
-                    image_url: $image_url,
-                    access_token: $token
-                  }' > /tmp/payload.json
-
-                CREATE_RESP=$(curl -s -X POST "https://graph.facebook.com/v22.0/$IG_USER_ID/media" \
-                  -d @/tmp/payload.json 2>&1) || true
-                echo "CREATE: $CREATE_RESP"
-
-                CONTAINER_ID=$(echo "$CREATE_RESP" | jq -r '.id // empty' 2>/dev/null || echo "")
-                if [ -n "$CONTAINER_ID" ] && [ "$CONTAINER_ID" != "null" ]; then
-                  echo "Container creado: $CONTAINER_ID"
-                  sleep 2
-                  PUBLISH_RESP=$(curl -s -X POST "https://graph.facebook.com/v22.0/$IG_USER_ID/media_publish" \
-                    -d "creation_id=$CONTAINER_ID" \
-                    -d "access_token=$IG_TOKEN" 2>&1) || true
-                  echo "PUBLISH: $PUBLISH_RESP"
-                  PUBLISHED_ID=$(echo "$PUBLISH_RESP" | jq -r '.id // empty' 2>/dev/null || echo "")
-                  if [ -n "$PUBLISHED_ID" ] && [ "$PUBLISHED_ID" != "null" ]; then
-                    echo "✅ $id publicado! IG ID: $PUBLISHED_ID"
-                  else
-                    echo "⚠️ Error al publicar container $CONTAINER_ID"
-                    FAILED=1
-                  fi
-                else
-                  echo "⚠️ Error al crear container para $id"
-                  FAILED=1
-                fi
-              else
-                echo "⚠️ $id: sin image_url"
-                FAILED=1
-              fi
-            else
-              echo "⚠️ IG_TOKEN no configurado"
-              FAILED=1
+          for f in content/pending/*.json; do
+            [ -f "$f" ] || continue
+            s=$(jq -r '.estado' "$f") && [ "$s" = "approved" ] || continue
+            id=$(jq -r '.id' "$f")
+            echo "=== $id ==="
+            if [ -z "$TOKEN" ]; then echo "No TOKEN"; exit 1; fi
+            url=$(jq -r '.image_url // empty' "$f")
+            cat=$(jq -r '.contenido.caption // ""' "$f")
+            htg=$(jq -r '.contenido.hashtags // [] | join(" ")' "$f")
+            cap=$(printf "%s\n\n%s" "$cat" "$htg")
+            jq -n --arg c "$cap" --arg u "$url" --arg t "$TOKEN" '{caption:$c, media_type:"IMAGE", image_url:$u, access_token:$t}' | curl -s -X POST "https://graph.facebook.com/v22.0/17841439116274856/media" -d @- > /tmp/resp.json
+            cid=$(jq -r '.id // empty' /tmp/resp.json 2>/dev/null || echo "")
+            if [ -n "$cid" ]; then
+              sleep 2
+              jq -n --arg c "$cid" --arg t "$TOKEN" '{creation_id:$c, access_token:$t}' | curl -s -X POST "https://graph.facebook.com/v22.0/17841439116274856/media_publish" -d @-
             fi
-
-            mv "$file" "content/published/$id.json"
-            echo "✅ $id movido a published/"
+            mv "$f" "content/published/$id.json"
           done
 
-          exit $FAILED
-
-      - name: Commit cambios
+      - name: Commit
         run: |
-          git config user.name "NexoIA Bot"
-          git config user.email "nexoia.cali@gmail.com"
+          git config user.name "Bot"
+          git config user.email "bot@nexoia.cali"
           git add content/published/ content/pending/
-          git diff --staged --quiet || (git commit -m "📸 Contenido publicado en @nexoia_cali" && git push)
+          git diff --staged --quiet || (git commit -m "Publicado" && git push)
