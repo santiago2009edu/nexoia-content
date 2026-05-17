@@ -137,8 +137,9 @@ async function loadContent() {
     );
     allContent = contents;
   } catch(e) {
-    document.getElementById("contentStats").innerHTML = `<span style="color:#e74c3c;">Error: ${e.message}. Revisa que el token tenga acceso al repo.</span>`;
+    document.getElementById("content-list").innerHTML = `<div class="empty"><div class="empty-ico">⚠️</div><h2 style="color:#e74c3c;">Error de conexión</h2><p style="color:#e74c3c;">${e.message}</p><p style="margin-top:12px;font-size:13px;">Revisa que tu token de GitHub tenga acceso al repo o que no hayas excedido el límite de solicitudes.</p></div>`;
     allContent = [];
+    return;
   }
   render();
 }
