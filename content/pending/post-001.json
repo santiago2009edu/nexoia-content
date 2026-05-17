@@ -4,16 +4,32 @@
   "fecha_generacion": "2026-05-16",
   "fecha_propuesta_publicacion": "2026-05-17",
   "hora_propuesta": "07:30",
-  "estado": "pending",
+  "estado": "approved",
   "plataforma": "instagram",
   "contenido": {
     "caption": "Tu negocio en Cali puede tener presencia digital profesional sin que hagas nada.\n\nNosotros creamos, diseñamos y publicamos 20+ posts al mes con IA.\nTú solo te enfocas en lo que sabes hacer.\n\n📩 nexoia.cali@gmail.com\n\n#NexoIA #MarketingCali #NegociosCali #AutomatizacionIA #CaliColombia #EmprendimientoCali",
-    "hashtags": ["#NexoIA", "#MarketingCali", "#NegociosCali", "#AutomatizacionIA", "#CaliColombia", "#EmprendimientoCali"],
+    "hashtags": [
+      "#NexoIA",
+      "#MarketingCali",
+      "#NegociosCali",
+      "#AutomatizacionIA",
+      "#CaliColombia",
+      "#EmprendimientoCali"
+    ],
     "visual": {
       "descripcion": "Imagen minimalista oscura con el logo de NexoIA (tres nodos verdes conectados) en el centro. Texto grande: '20 POSTS AL MES. SIN QUE TÚ HAGAS NADA.' en fuente Fraunces blanco. Subtítulo: 'NexoIA · Cali, Colombia' en verde #4DBA87. Fondo #06100A con textura de puntos tenues.",
       "tamano": "1080x1080",
-      "colores": {"fondo": "#06100A", "texto": "#EFF9F4", "acento": "#4DBA87"},
-      "elementos": ["Logo NexoIA central", "Texto '20 POSTS AL MES'", "Subtítulo 'IA Automatizada'", "CTA 'nexoia.cali@gmail.com'"]
+      "colores": {
+        "fondo": "#06100A",
+        "texto": "#EFF9F4",
+        "acento": "#4DBA87"
+      },
+      "elementos": [
+        "Logo NexoIA central",
+        "Texto '20 POSTS AL MES'",
+        "Subtítulo 'IA Automatizada'",
+        "CTA 'nexoia.cali@gmail.com'"
+      ]
     }
   }
 }
