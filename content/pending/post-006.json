@@ -4,16 +4,31 @@
   "fecha_generacion": "2026-05-16",
   "fecha_propuesta_publicacion": "2026-05-23",
   "hora_propuesta": "07:30",
-  "estado": "pending",
+  "estado": "approved",
   "plataforma": "instagram",
   "contenido": {
     "caption": "¿Peluquería o salón en Cali? Esto es para ti ✂️\n\nTus clientes buscan: antes y después, promociones, trabajos tuyos.\nPero no tienes tiempo para publicar todo eso.\n\nNexoIA:\n✓ Creamos 20+ posts/mes mostrando tu trabajo\n✓ Diseñamos con IA en tu estilo\n✓ Publicamos en los mejores horarios\n✓ Respondemos consultas por DM\n\nResultado: más clientas llegando por Instagram.\n\n📩 nexoia.cali@gmail.com\n\n#PeluqueriaCali #SalonBelleza #NexoIA #MarketingCali #TransformacionCapilar",
-    "hashtags": ["#PeluqueriaCali", "#SalonBelleza", "#NexoIA", "#MarketingCali", "#TransformacionCapilar"],
+    "hashtags": [
+      "#PeluqueriaCali",
+      "#SalonBelleza",
+      "#NexoIA",
+      "#MarketingCali",
+      "#TransformacionCapilar"
+    ],
     "visual": {
       "descripcion": "Fondo oscuro #06100A con degradado verde sutil. Tijeras y peine como icono central. Texto: 'PELUQUERÍAS' en verde Fraunces. Subtítulo: 'Tu trabajo habla por sí solo. Nosotros lo mostramos al mundo.' Logo NexoIA.",
       "tamano": "1080x1080",
-      "colores": {"fondo": "#06100A", "texto": "#EFF9F4", "acento": "#4DBA87"},
-      "elementos": ["Icono tijeras", "Texto para peluquerías", "Lista de servicios", "Logo NexoIA"]
+      "colores": {
+        "fondo": "#06100A",
+        "texto": "#EFF9F4",
+        "acento": "#4DBA87"
+      },
+      "elementos": [
+        "Icono tijeras",
+        "Texto para peluquerías",
+        "Lista de servicios",
+        "Logo NexoIA"
+      ]
     }
   }
 }
