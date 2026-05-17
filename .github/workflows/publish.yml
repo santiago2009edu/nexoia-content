@@ -54,11 +54,11 @@ jobs:
               echo "Instagram publish: $(cat /tmp/ig_pub.json)"
             fi
 
-            # Facebook Page feed (cross-post)
-            fb_msg=$(printf "%s\n🔗 www.nexoia-agency.github.io" "$cap")
-            jq -n --arg m "$fb_msg" --arg u "$url" --arg t "$TOKEN" '{message:$m, attached_media:[{media_fbid:$u}], access_token:$t}' \
-              | curl -s -X POST "https://graph.facebook.com/v22.0/${FB_PAGE_ID}/feed" -d @- > /tmp/fb_resp.json
-            echo "Facebook feed: $(cat /tmp/fb_resp.json)"
+            # Facebook Page cross-post con foto
+            fb_msg=$(printf "%s\n\n%s\n🔗 https://nexoia-agency.github.io" "$cat" "$htg")
+            jq -n --arg u "$url" --arg m "$fb_msg" --arg t "$TOKEN" '{url:$u, message:$m, access_token:$t}' \
+              | curl -s -X POST "https://graph.facebook.com/v22.0/${FB_PAGE_ID}/photos" -d @- > /tmp/fb_resp.json
+            echo "Facebook photo: $(cat /tmp/fb_resp.json)"
 
             mv "$f" "content/published/$id.json"
           done
