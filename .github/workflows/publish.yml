@@ -33,35 +33,52 @@ jobs:
 
             # Intentar publicar en Instagram solo si hay IG_TOKEN configurado
             if [ -n "$IG_TOKEN" ] && [ "$IG_TOKEN" != "" ]; then
-              # Obtener image_url del JSON, o usar placeholder
-              IMAGE_URL=$(jq -r '.contenido.visual.image_url // empty' "$file")
+              # Obtener image_url del JSON
+              IMAGE_URL=$(jq -r '.image_url // empty' "$file")
               if [ -z "$IMAGE_URL" ]; then
-                IMAGE_URL="https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/placeholder.svg"
-                echo "⚠️ Sin image_url en JSON, usando placeholder"
+                echo "⚠️ $id: sin image_url, saltando publicacion"
+                continue
               fi
+              echo "📸 Image URL: $IMAGE_URL"
 
-              if [ "$tipo" = "post" ] || [ "$tipo" = "carrusel" ]; then
+              if [ "$tipo" = "post" ]; then
                 CREATE_RESP=$(curl -s -X POST "https://graph.facebook.com/v22.0/$IG_USER_ID/media" \
                   --data-urlencode "caption=$caption_full" \
                   -d "media_type=IMAGE" \
                   -d "image_url=$IMAGE_URL" \
                   -d "access_token=$IG_TOKEN")
                 echo "Container: $CREATE_RESP"
-
                 CONTAINER_ID=$(echo "$CREATE_RESP" | jq -r '.id // empty')
                 if [ -n "$CONTAINER_ID" ] && [ "$CONTAINER_ID" != "null" ]; then
-                  echo "🔄 Publicando container $CONTAINER_ID..."
+                  echo "🔄 Publicando..."
                   PUBLISH_RESP=$(curl -s -X POST "https://graph.facebook.com/v22.0/$IG_USER_ID/media_publish" \
                     -d "creation_id=$CONTAINER_ID" \
                     -d "access_token=$IG_TOKEN")
                   echo "Publish: $PUBLISH_RESP"
                   PUBLISHED_ID=$(echo "$PUBLISH_RESP" | jq -r '.id // empty')
                   if [ -n "$PUBLISHED_ID" ] && [ "$PUBLISHED_ID" != "null" ]; then
-                    echo "✅ $id publicado con IG media ID: $PUBLISHED_ID"
-                  else
-                    echo "⚠️ $id: error al publicar: $PUBLISH_RESP"
+                    echo "✅ $id publicado!"
                   fi
                 fi
+              elif [ "$tipo" = "carrusel" ]; then
+                echo "📚 Carrusel detectado, publicando slide 1 como imagen simple por ahora..."
+                CREATE_RESP=$(curl -s -X POST "https://graph.facebook.com/v22.0/$IG_USER_ID/media" \
+                  --data-urlencode "caption=$caption_full" \
+                  -d "media_type=IMAGE" \
+                  -d "image_url=$IMAGE_URL" \
+                  -d "access_token=$IG_TOKEN")
+                echo "Container: $CREATE_RESP"
+                CONTAINER_ID=$(echo "$CREATE_RESP" | jq -r '.id // empty')
+                if [ -n "$CONTAINER_ID" ] && [ "$CONTAINER_ID" != "null" ]; then
+                  PUBLISH_RESP=$(curl -s -X POST "https://graph.facebook.com/v22.0/$IG_USER_ID/media_publish" \
+                    -d "creation_id=$CONTAINER_ID" \
+                    -d "access_token=$IG_TOKEN")
+                  echo "Publish: $PUBLISH_RESP"
+                fi
+              elif [ "$tipo" = "story" ]; then
+                echo "📖 Story (aun no implementado)"
+              elif [ "$tipo" = "reel" ]; then
+                echo "🎬 Reel requiere video (aun no implementado)"
               fi
             else
               echo "⚠️ IG_TOKEN no configurado, saltando publicacion a Instagram"

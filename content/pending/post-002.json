@@ -31,5 +31,9 @@
         "Barra decorativa verde"
       ]
     }
-  }
+  },
+  "image_urls": [
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/post-002.jpg"
+  ],
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/post-002.jpg"
 }

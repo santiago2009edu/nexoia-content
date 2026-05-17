@@ -38,5 +38,14 @@
       "SERVICIO 4: 📊 'Reporte mensual' — Icono de gráfico. 'Resultados claros: alcance, seguidores, conversiones.'",
       "CTA: 'Todo desde $280K/mes. Sin permanencia. nexoia.cali@gmail.com'"
     ]
-  }
+  },
+  "image_urls": [
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-003-slide-1.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-003-slide-2.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-003-slide-3.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-003-slide-4.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-003-slide-5.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-003-slide-6.jpg"
+  ],
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-003-slide-1.jpg"
 }

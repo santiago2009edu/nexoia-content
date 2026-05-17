@@ -8,17 +8,35 @@
   "plataforma": "instagram",
   "contenido": {
     "caption": "📢 CLIENTE NUEVO:\n\n¿Tienes un negocio en Cali y quieres crecer en Instagram?\n\nHOY: Diagnóstico digital GRATIS.\nTe decimos qué está pasando con tus redes y cómo mejorarlas.\nSin compromiso.\n\nEscríbenos: nexoia.cali@gmail.com\n\n#NexoIA #Oferta #DiagnosticoGratis #Cali",
-    "hashtags": ["#NexoIA", "#Oferta", "#DiagnosticoGratis", "#Cali"],
+    "hashtags": [
+      "#NexoIA",
+      "#Oferta",
+      "#DiagnosticoGratis",
+      "#Cali"
+    ],
     "visual": {
       "descripcion": "Story 9:16. Fondo oscuro con brillo verde. Círculo verde pulsante simulando 'EN VIVO'. Texto grande: 'DIAGNÓSTICO GRATIS' en Fraunces. Subtítulo: 'Para tu negocio en Cali'. Botón CTA verde 'Escríbeme'.",
       "tamano": "1080x1920",
-      "colores": {"fondo": "#06100A", "texto": "#EFF9F4", "acento": "#4DBA87"},
-      "elementos": ["Círculo EN VIVO", "Oferta diagnóstivo gratis", "Botón CTA", "Logo NexoIA"]
+      "colores": {
+        "fondo": "#06100A",
+        "texto": "#EFF9F4",
+        "acento": "#4DBA87"
+      },
+      "elementos": [
+        "Círculo EN VIVO",
+        "Oferta diagnóstivo gratis",
+        "Botón CTA",
+        "Logo NexoIA"
+      ]
     },
     "story_elementos": {
       "tipo": "cta",
       "texto_boton": "Escríbeme",
       "link": "mailto:nexoia.cali@gmail.com"
     }
-  }
+  },
+  "image_urls": [
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/story-004.jpg"
+  ],
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/story-004.jpg"
 }

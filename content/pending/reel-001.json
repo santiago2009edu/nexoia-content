@@ -32,5 +32,9 @@
       ]
     },
     "reel_guion": "HOOK (0-3s): '¿Sabes qué pasa con tu Instagram mientras duermes?'\n\nPROBLEMA (3-8s): Pantalla en negro. 'Nada. Silencio total.' Sonido de reloj.\n\nSOLUCIÓN (8-13s): Aparece logo NexoIA con efecto glow. 'NexoIA publica por ti 20 veces al mes. Incluso de madrugada.'\n\nCTA (13-15s): 'nexoia.cali@gmail.com' con el lema 'Automatiza. Crece. Descansa.'"
-  }
+  },
+  "image_urls": [
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/reel-001.jpg"
+  ],
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/reel-001.jpg"
 }

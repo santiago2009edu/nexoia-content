@@ -39,5 +39,15 @@
       "ERROR 5: 'No tener estrategia' — Sin plan no hay crecimiento. Icono de gráfico.",
       "CTA: 'Nosotros solucionamos estos 5 errores por ti. nexoia.cali@gmail.com'"
     ]
-  }
+  },
+  "image_urls": [
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-1.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-2.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-3.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-4.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-5.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-6.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-7.jpg"
+  ],
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-1.jpg"
 }
