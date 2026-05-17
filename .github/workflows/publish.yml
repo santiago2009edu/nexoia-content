@@ -16,6 +16,7 @@ jobs:
         env:
           IG_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
           IG_USER_ID: "17841439116274856"
+        shell: bash
         run: |
           for file in content/pending/*.json; do
             [ -f "$file" ] || continue
@@ -26,29 +27,54 @@ jobs:
             tipo=$(jq -r '.tipo' "$file")
             caption=$(jq -r '.contenido.caption' "$file")
             hashtags=$(jq -r '.contenido.hashtags | join(" ")' "$file")
-            caption_full="$caption\n\n$hashtags"
+            caption_full=$(printf '%s\n\n%s' "$caption" "$hashtags")
 
             echo "📤 Publicando $tipo: $id"
 
-            if [ "$tipo" = "post" ] || [ "$tipo" = "carrusel" ]; then
-              # Crear container en Instagram
-              CREATE_RESP=$(curl -s -X POST "https://graph.facebook.com/v22.0/$IG_USER_ID/media" \
-                -d "caption=$caption_full" \
-                -d "media_type=IMAGE" \
-                -d "image_url=https://santiago2009edu.github.io/nexoia-content/assets/placeholder.jpg" \
-                -d "access_token=$IG_TOKEN")
-              echo "Container: $CREATE_RESP"
+            # Intentar publicar en Instagram solo si hay IG_TOKEN configurado
+            if [ -n "$IG_TOKEN" ] && [ "$IG_TOKEN" != "" ]; then
+              # Obtener image_url del JSON, o usar placeholder
+              IMAGE_URL=$(jq -r '.contenido.visual.image_url // empty' "$file")
+              if [ -z "$IMAGE_URL" ]; then
+                IMAGE_URL="https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/placeholder.svg"
+                echo "⚠️ Sin image_url en JSON, usando placeholder"
+              fi
+
+              if [ "$tipo" = "post" ] || [ "$tipo" = "carrusel" ]; then
+                CREATE_RESP=$(curl -s -X POST "https://graph.facebook.com/v22.0/$IG_USER_ID/media" \
+                  --data-urlencode "caption=$caption_full" \
+                  -d "media_type=IMAGE" \
+                  -d "image_url=$IMAGE_URL" \
+                  -d "access_token=$IG_TOKEN")
+                echo "Container: $CREATE_RESP"
+
+                CONTAINER_ID=$(echo "$CREATE_RESP" | jq -r '.id // empty')
+                if [ -n "$CONTAINER_ID" ] && [ "$CONTAINER_ID" != "null" ]; then
+                  echo "🔄 Publicando container $CONTAINER_ID..."
+                  PUBLISH_RESP=$(curl -s -X POST "https://graph.facebook.com/v22.0/$IG_USER_ID/media_publish" \
+                    -d "creation_id=$CONTAINER_ID" \
+                    -d "access_token=$IG_TOKEN")
+                  echo "Publish: $PUBLISH_RESP"
+                  PUBLISHED_ID=$(echo "$PUBLISH_RESP" | jq -r '.id // empty')
+                  if [ -n "$PUBLISHED_ID" ] && [ "$PUBLISHED_ID" != "null" ]; then
+                    echo "✅ $id publicado con IG media ID: $PUBLISHED_ID"
+                  else
+                    echo "⚠️ $id: error al publicar: $PUBLISH_RESP"
+                  fi
+                fi
+              fi
+            else
+              echo "⚠️ IG_TOKEN no configurado, saltando publicacion a Instagram"
             fi
 
-            # Mover a published
-            cp "$file" "content/published/$id.json"
-            echo "✅ $id publicado"
+            # Mover a published y eliminar de pending
+            mv "$file" "content/published/$id.json"
+            echo "✅ $id procesado"
           done
 
       - name: Commit cambios
         run: |
           git config user.name "NexoIA Bot"
           git config user.email "nexoia.cali@gmail.com"
-          git add content/published/
-          git diff --staged --quiet || git commit -m "📸 Contenido publicado en @nexoia_cali"
-          git push
+          git add content/published/ content/pending/
+          git diff --staged --quiet || (git commit -m "📸 Contenido publicado en @nexoia_cali" && git push)

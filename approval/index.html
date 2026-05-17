@@ -192,7 +192,16 @@ function updateStats() {
   document.getElementById("next-date").textContent = next ? `${next.data.fecha_propuesta_publicacion} ${next.data.hora_propuesta}` : "—";
 }
 
+async function ensureToken() {
+  if (!TOKEN) {
+    TOKEN = prompt("Necesitas un token de GitHub con permisos de escritura para aprobar.\n\nCrea uno en: https://github.com/settings/tokens\n(Scope: repo)", "");
+    if (TOKEN) sessionStorage.setItem("gh_token", TOKEN);
+  }
+  return TOKEN;
+}
+
 async function approve(id) {
+  if (!await ensureToken()) return;
   const entry = allContent.find(c => c.data.id === id);
   if (!entry) return;
   const item = entry.data;
@@ -213,7 +222,7 @@ async function approve(id) {
     allContent = allContent.filter(c => c.data.id !== id);
     render(document.querySelector(".filter.active")?.dataset?.filter || "all");
   } else {
-    alert("Error al aprobar. ¿El token tiene permisos de escritura?");
+    alert("Error al aprobar. Asegúrate de que el token tenga permisos de escritura (scope: repo).");
   }
 }
 
