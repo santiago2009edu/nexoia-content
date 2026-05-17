@@ -39,9 +39,7 @@ jobs:
                 echo "Publicando en Instagram..."
                 CAPTION=$(jq -r '.contenido.caption' "$file")
                 HASHTAGS=$(jq -r '.contenido.hashtags | join(" ")' "$file")
-                CAPTION_FULL="$CAPTION
-
-$HASHTAGS"
+                CAPTION_FULL=$(printf "%s\n\n%s" "$CAPTION" "$HASHTAGS")
 
                 # Build JSON payload properly to avoid shell escaping issues
                 jq -n \
