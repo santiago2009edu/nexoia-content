@@ -12,12 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Procesar y publicar contenido aprobado
+      - name: Publicar en Instagram
         env:
           IG_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
           IG_USER_ID: "17841439116274856"
         shell: bash
         run: |
+          set -x
+          mkdir -p content/published
+          FAILED=0
+
           for file in content/pending/*.json; do
             [ -f "$file" ] || continue
             estado=$(jq -r '.estado' "$file")
@@ -25,69 +29,68 @@ jobs:
 
             id=$(jq -r '.id' "$file")
             tipo=$(jq -r '.tipo' "$file")
-            caption=$(jq -r '.contenido.caption' "$file")
-            hashtags=$(jq -r '.contenido.hashtags | join(" ")' "$file")
-            caption_full=$(printf '%s\n\n%s' "$caption" "$hashtags")
 
-            echo "📤 Publicando $tipo: $id"
+            echo "=== Procesando $id ($tipo) ==="
 
-            # Intentar publicar en Instagram solo si hay IG_TOKEN configurado
-            if [ -n "$IG_TOKEN" ] && [ "$IG_TOKEN" != "" ]; then
-              # Obtener image_url del JSON
+            if [ -n "$IG_TOKEN" ]; then
               IMAGE_URL=$(jq -r '.image_url // empty' "$file")
-              if [ -z "$IMAGE_URL" ]; then
-                echo "⚠️ $id: sin image_url, saltando publicacion"
-                continue
-              fi
-              echo "📸 Image URL: $IMAGE_URL"
+              if [ -n "$IMAGE_URL" ]; then
+                echo "Publicando en Instagram..."
+                CAPTION=$(jq -r '.contenido.caption' "$file")
+                HASHTAGS=$(jq -r '.contenido.hashtags | join(" ")' "$file")
+                CAPTION_FULL="$CAPTION
 
-              if [ "$tipo" = "post" ]; then
+$HASHTAGS"
+
+                # Build JSON payload properly to avoid shell escaping issues
+                jq -n \
+                  --arg caption "$CAPTION_FULL" \
+                  --arg image_url "$IMAGE_URL" \
+                  --arg token "$IG_TOKEN" \
+                  '{
+                    caption: $caption,
+                    media_type: "IMAGE",
+                    image_url: $image_url,
+                    access_token: $token
+                  }' > /tmp/payload.json
+
                 CREATE_RESP=$(curl -s -X POST "https://graph.facebook.com/v22.0/$IG_USER_ID/media" \
-                  --data-urlencode "caption=$caption_full" \
-                  -d "media_type=IMAGE" \
-                  -d "image_url=$IMAGE_URL" \
-                  -d "access_token=$IG_TOKEN")
-                echo "Container: $CREATE_RESP"
-                CONTAINER_ID=$(echo "$CREATE_RESP" | jq -r '.id // empty')
+                  -d @/tmp/payload.json 2>&1) || true
+                echo "CREATE: $CREATE_RESP"
+
+                CONTAINER_ID=$(echo "$CREATE_RESP" | jq -r '.id // empty' 2>/dev/null || echo "")
                 if [ -n "$CONTAINER_ID" ] && [ "$CONTAINER_ID" != "null" ]; then
-                  echo "🔄 Publicando..."
+                  echo "Container creado: $CONTAINER_ID"
+                  sleep 2
                   PUBLISH_RESP=$(curl -s -X POST "https://graph.facebook.com/v22.0/$IG_USER_ID/media_publish" \
                     -d "creation_id=$CONTAINER_ID" \
-                    -d "access_token=$IG_TOKEN")
-                  echo "Publish: $PUBLISH_RESP"
-                  PUBLISHED_ID=$(echo "$PUBLISH_RESP" | jq -r '.id // empty')
+                    -d "access_token=$IG_TOKEN" 2>&1) || true
+                  echo "PUBLISH: $PUBLISH_RESP"
+                  PUBLISHED_ID=$(echo "$PUBLISH_RESP" | jq -r '.id // empty' 2>/dev/null || echo "")
                   if [ -n "$PUBLISHED_ID" ] && [ "$PUBLISHED_ID" != "null" ]; then
-                    echo "✅ $id publicado!"
+                    echo "✅ $id publicado! IG ID: $PUBLISHED_ID"
+                  else
+                    echo "⚠️ Error al publicar container $CONTAINER_ID"
+                    FAILED=1
                   fi
+                else
+                  echo "⚠️ Error al crear container para $id"
+                  FAILED=1
                 fi
-              elif [ "$tipo" = "carrusel" ]; then
-                echo "📚 Carrusel detectado, publicando slide 1 como imagen simple por ahora..."
-                CREATE_RESP=$(curl -s -X POST "https://graph.facebook.com/v22.0/$IG_USER_ID/media" \
-                  --data-urlencode "caption=$caption_full" \
-                  -d "media_type=IMAGE" \
-                  -d "image_url=$IMAGE_URL" \
-                  -d "access_token=$IG_TOKEN")
-                echo "Container: $CREATE_RESP"
-                CONTAINER_ID=$(echo "$CREATE_RESP" | jq -r '.id // empty')
-                if [ -n "$CONTAINER_ID" ] && [ "$CONTAINER_ID" != "null" ]; then
-                  PUBLISH_RESP=$(curl -s -X POST "https://graph.facebook.com/v22.0/$IG_USER_ID/media_publish" \
-                    -d "creation_id=$CONTAINER_ID" \
-                    -d "access_token=$IG_TOKEN")
-                  echo "Publish: $PUBLISH_RESP"
-                fi
-              elif [ "$tipo" = "story" ]; then
-                echo "📖 Story (aun no implementado)"
-              elif [ "$tipo" = "reel" ]; then
-                echo "🎬 Reel requiere video (aun no implementado)"
+              else
+                echo "⚠️ $id: sin image_url"
+                FAILED=1
               fi
             else
-              echo "⚠️ IG_TOKEN no configurado, saltando publicacion a Instagram"
+              echo "⚠️ IG_TOKEN no configurado"
+              FAILED=1
             fi
 
-            # Mover a published y eliminar de pending
             mv "$file" "content/published/$id.json"
-            echo "✅ $id procesado"
+            echo "✅ $id movido a published/"
           done
+
+          exit $FAILED
 
       - name: Commit cambios
         run: |
