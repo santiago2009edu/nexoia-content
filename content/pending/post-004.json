@@ -1,39 +1,40 @@
 {
-  "id": "post-004",
-  "tipo": "post",
-  "fecha_generacion": "2026-05-16",
-  "fecha_propuesta_publicacion": "2026-05-21",
-  "hora_propuesta": "07:30",
-  "estado": "approved",
-  "plataforma": "instagram",
-  "contenido": {
-    "caption": "Automatiza. Crece. Descansa. ✨\n\nEse es el lema de NexoIA.\nMientras tú atiendes tu negocio, nosotros:\n\n✓ Creamos 20+ posts al mes con IA\n✓ Los diseñamos y publicamos\n✓ Respondemos comentarios y DMs\n✓ Te enviamos reporte mensual\n\nTú solo descansas y ves los resultados.\n\n📩 nexoia.cali@gmail.com\n\n#NexoIA #Automatizacion #MarketingCali #NegociosCali #CrecimientoDigital",
-    "hashtags": [
-      "#NexoIA",
-      "#Automatizacion",
-      "#MarketingCali",
-      "#NegociosCali",
-      "#CrecimientoDigital",
-      "#Emprender"
-    ],
-    "visual": {
-      "descripcion": "Fondo oscuro #06100A. Icono grande central: cara durmiendo 😴 con un celular al lado mostrando notificaciones. Texto grande: 'AUTOMATIZA. CRECE. DESCANSA.' en Fraunces blanco. Abajo: logo NexoIA en verde + CTA.",
-      "tamano": "1080x1080",
-      "colores": {
-        "fondo": "#06100A",
-        "texto": "#EFF9F4",
-        "acento": "#4DBA87"
-      },
-      "elementos": [
-        "Icono persona durmiendo",
-        "Celular con notificaciones",
-        "Lema central",
-        "Logo NexoIA"
-      ]
-    }
-  },
-  "image_urls": [
-    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/post-004.jpg"
-  ],
-  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/post-004.jpg"
+    "id":  "post-004",
+    "tipo":  "post",
+    "fecha_generacion":  "2026-05-16",
+    "fecha_propuesta_publicacion":  "2026-05-21",
+    "hora_propuesta":  "07:30",
+    "estado":  "approved",
+    "plataforma":  "instagram",
+    "contenido":  {
+                      "caption":  "Automatiza. Crece. Descansa. ✨\n\nEse es el lema de NexoIA.\nMientras tú atiendes tu negocio, nosotros:\n\n✓ Creamos 20+ posts al mes con IA\n✓ Los diseñamos y publicamos\n✓ Respondemos comentarios y DMs\n✓ Te enviamos reporte mensual\n\nTú solo descansas y ves los resultados.\n\n📩 nexoia.cali@gmail.com\n\n#NexoIA #Automatizacion #MarketingCali #NegociosCali #CrecimientoDigital",
+                      "hashtags":  [
+                                       "#NexoIA",
+                                       "#Automatizacion",
+                                       "#MarketingCali",
+                                       "#NegociosCali",
+                                       "#CrecimientoDigital",
+                                       "#Emprender"
+                                   ],
+                      "visual":  {
+                                     "descripcion":  "Fondo oscuro #06100A. Icono grande central: cara durmiendo 😴 con un celular al lado mostrando notificaciones. Texto grande: \u0027AUTOMATIZA. CRECE. DESCANSA.\u0027 en Fraunces blanco. Abajo: logo NexoIA en verde + CTA.",
+                                     "tamano":  "1080x1080",
+                                     "colores":  {
+                                                     "fondo":  "#06100A",
+                                                     "texto":  "#EFF9F4",
+                                                     "acento":  "#4DBA87"
+                                                 },
+                                     "elementos":  [
+                                                       "Icono persona durmiendo",
+                                                       "Celular con notificaciones",
+                                                       "Lema central",
+                                                       "Logo NexoIA"
+                                                   ]
+                                 }
+                  },
+    "image_urls":  [
+                       "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/post-004.jpg"
+                   ],
+    "image_url":  "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/post-004.jpg",
+    "_trigger":  "00:19:46"
 }
