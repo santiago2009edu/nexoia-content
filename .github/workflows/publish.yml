@@ -1,6 +1,8 @@
-name: Publicar en Instagram
+name: Publicar en Instagram y Facebook
 
 on:
+  schedule:
+    - cron: '*/30 * * * *'
   workflow_dispatch:
   push:
     branches: [main]
@@ -18,11 +20,12 @@ jobs:
         with:
           token: ${{ github.token }}
 
-      - name: Publicar y Commitar
+      - name: Publicar en Instagram + Facebook y Commitar
         shell: bash
         env:
           TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
           GH_TOKEN: ${{ github.token }}
+          FB_PAGE_ID: "1073392185865577"
         run: |
           set -x
           mkdir -p content/published
@@ -33,20 +36,44 @@ jobs:
             echo "=== $id ==="
             if [ -z "$TOKEN" ]; then echo "No TOKEN"; exit 1; fi
             url=$(jq -r '.image_url // empty' "$f")
+            ig=$(jq -r '.instagram_id // ""' "$f")
             cat=$(jq -r '.contenido.caption // ""' "$f")
             htg=$(jq -r '.contenido.hashtags // [] | join(" ")' "$f")
             cap=$(printf "%s\n\n%s" "$cat" "$htg")
-            jq -n --arg c "$cap" --arg u "$url" --arg t "$TOKEN" '{caption:$c, media_type:"IMAGE", image_url:$u, access_token:$t}' | curl -s -X POST "https://graph.facebook.com/v22.0/17841439116274856/media" -d @- > /tmp/resp.json
-            cid=$(jq -r '.id // empty' /tmp/resp.json 2>/dev/null || echo "")
-            if [ -n "$cid" ]; then
-              sleep 2
-              jq -n --arg c "$cid" --arg t "$TOKEN" '{creation_id:$c, access_token:$t}' | curl -s -X POST "https://graph.facebook.com/v22.0/17841439116274856/media_publish" -d @-
+
+            # Instagram container
+            jq -n --arg c "$cap" --arg u "$url" --arg t "$TOKEN" '{caption:$c, media_type:"IMAGE", image_url:$u, access_token:$t}' \
+              | curl -s -X POST "https://graph.facebook.com/v22.0/17841439116274856/media" -d @- > /tmp/ig_resp.json
+            ig_id=$(jq -r '.id // empty' /tmp/ig_resp.json)
+            echo "Instagram container: $(cat /tmp/ig_resp.json)"
+            if [ -n "$ig_id" ] && [ "$ig_id" != "null" ]; then
+              sleep 3
+              jq -n --arg c "$ig_id" --arg t "$TOKEN" '{creation_id:$c, access_token:$t}' \
+                | curl -s -X POST "https://graph.facebook.com/v22.0/17841439116274856/media_publish" -d @- > /tmp/ig_pub.json
+              ig_pub_id=$(jq -r '.id // empty' /tmp/ig_pub.json)
+              echo "Instagram publish: $(cat /tmp/ig_pub.json)"
             fi
+
+            # Facebook Page feed (cross-post)
+            fb_msg=$(printf "%s\n🔗 www.nexoia-agency.github.io" "$cap")
+            jq -n --arg m "$fb_msg" --arg u "$url" --arg t "$TOKEN" '{message:$m, attached_media:[{media_fbid:$u}], access_token:$t}' \
+              | curl -s -X POST "https://graph.facebook.com/v22.0/${FB_PAGE_ID}/feed" -d @- > /tmp/fb_resp.json
+            echo "Facebook feed: $(cat /tmp/fb_resp.json)"
+
             mv "$f" "content/published/$id.json"
           done
-          git config user.name "Bot"
+          git config user.name "NexoIA Bot"
           git config user.email "bot@nexoia.cali"
           git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/santiago2009edu/nexoia-content
           git add -A
           git status
-          git diff --staged --quiet || (git commit -m "Publicado" && git pull --rebase && git push)
+          git diff --staged --quiet || (git commit -m "Publicado automáticamente" && git pull --rebase && git push)
+
+      - name: Notificar error
+        if: failure()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Workflow falló. Revisa los logs en:"
+          echo "https://github.com/santiago2009edu/nexoia-content/actions"

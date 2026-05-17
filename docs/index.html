@@ -49,6 +49,7 @@ body{font-family:var(--fb);background:var(--bg);color:var(--w);min-height:100vh}
 .slides-row{display:flex;gap:8px;overflow-x:auto;padding:8px 0;margin-bottom:12px}
 .slide-mini{min-width:120px;background:var(--bg);border:1px solid rgba(77,186,135,.1);border-radius:8px;padding:12px;font-size:10px;color:var(--m);text-align:center;line-height:1.4}
 .slide-mini em{color:var(--g2);font-style:normal;display:block;margin-bottom:4px}
+.cc-media{width:100%;max-height:480px;object-fit:contain;border-radius:8px;margin-bottom:12px;background:var(--bg)}
 /* CC BOTTOM */
 .cc-bot{display:flex;gap:10px;padding:12px 18px;border-top:1px solid rgba(77,186,135,.08);flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:500;border:none;cursor:pointer;font-family:var(--fb);transition:all .2s;text-decoration:none}
@@ -171,6 +172,10 @@ function renderCard(c) {
       <div class="cc-body">
         <div class="cc-caption">${c.caption || c.contenido.caption}</div>
         <div class="cc-hashtags">${(c.contenido.hashtags || []).map(h => `<span class="cc-htag">${h}</span>`).join("")}</div>
+        ${c.image_url ? (c.tipo === "reel"
+          ? `<video controls class="cc-media" poster="${c.image_url}" preload="metadata"><source src="${c.image_url}" type="video/mp4"></video>`
+          : `<img class="cc-media" src="${c.image_url}" alt="${c.id}" loading="lazy">`)
+          : ""}
         ${slidesHtml}
         <div class="cc-visual"><strong>🎨 Visual:</strong> ${c.contenido.visual.descripcion}<br><strong>📐 ${c.contenido.visual.tamano}</strong></div>
       </div>
