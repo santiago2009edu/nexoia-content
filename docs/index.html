@@ -137,6 +137,7 @@ async function loadContent() {
     );
     allContent = contents;
   } catch(e) {
+    document.getElementById("contentStats").innerHTML = `<span style="color:#e74c3c;">Error: ${e.message}. Revisa que el token tenga acceso al repo.</span>`;
     allContent = [];
   }
   render();
