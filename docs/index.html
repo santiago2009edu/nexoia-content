@@ -109,17 +109,30 @@ const GITHUB_REPO = "nexoia-content";
 const GITHUB_BRANCH = "main";
 
 let allContent = [];
+let allFiles = [];
+let TOKEN = sessionStorage.getItem("gh_token") || "";
+
+async function api(path, opts = {}) {
+  const headers = { Accept: "application/vnd.github+json" };
+  if (TOKEN) headers.Authorization = `Bearer ${TOKEN}`;
+  const r = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}${path}`, { ...opts, headers });
+  if (!r.ok && r.status !== 404) console.warn("API error", r.status, path);
+  return r;
+}
 
 async function loadContent() {
+  if (!TOKEN) {
+    TOKEN = prompt("Ingresa tu token de GitHub (se guarda en esta sesión):", "");
+    if (TOKEN) sessionStorage.setItem("gh_token", TOKEN);
+  }
   try {
-    const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/content/pending`;
-    const resp = await fetch(url);
+    const resp = await api("/contents/content/pending");
     if (!resp.ok) throw new Error("No content yet");
-    const files = await resp.json();
+    allFiles = await resp.json();
     const contents = await Promise.all(
-      files.filter(f => f.name.endsWith(".json")).map(async f => {
+      allFiles.filter(f => f.name.endsWith(".json")).map(async f => {
         const r = await fetch(f.download_url);
-        return r.json();
+        return { data: await r.json(), file: f };
       })
     );
     allContent = contents;
@@ -133,12 +146,12 @@ function render(filter = "all") {
   const list = document.getElementById("content-list");
   let items = allContent;
   if (filter !== "all") {
-    items = items.filter(c => c.tipo === filter || c.estado === filter);
+    items = items.filter(c => c.data.tipo === filter || c.data.estado === filter);
   }
   if (items.length === 0) {
     list.innerHTML = `<div class="empty"><div class="empty-ico">🤖</div><h2>No hay contenido pendiente</h2><p>Esperando a que la IA genere nuevos posts, carruseles, stories y reels para @nexoia_cali.</p></div>`;
   } else {
-    list.innerHTML = items.map(c => renderCard(c)).join("");
+    list.innerHTML = items.map(c => renderCard(c.data)).join("");
   }
   updateStats();
 }
@@ -157,7 +170,7 @@ function renderCard(c) {
         <div class="cc-date">${c.fecha_generacion} → ${c.fecha_propuesta_publicacion} ${c.hora_propuesta}</div>
       </div>
       <div class="cc-body">
-        <div class="cc-caption">${c.contenido.caption}</div>
+        <div class="cc-caption">${c.caption || c.contenido.caption}</div>
         <div class="cc-hashtags">${(c.contenido.hashtags || []).map(h => `<span class="cc-htag">${h}</span>`).join("")}</div>
         ${slidesHtml}
         <div class="cc-visual"><strong>🎨 Visual:</strong> ${c.contenido.visual.descripcion}<br><strong>📐 ${c.contenido.visual.tamano}</strong></div>
@@ -165,37 +178,60 @@ function renderCard(c) {
       <div class="cc-bot">
         <button class="btn btn-ok" onclick="approve('${c.id}')">✅ Aprobar</button>
         <button class="btn btn-no" onclick="reject('${c.id}')">❌ Rechazar</button>
-        <button class="btn btn-edit" onclick="edit('${c.id}')">✏️ Editar</button>
       </div>
     </div>`;
 }
 
 function updateStats() {
-  document.getElementById("count-pending").textContent = allContent.filter(c => c.estado === "pending").length;
-  document.getElementById("count-approved").textContent = allContent.filter(c => c.estado === "approved").length;
-  const next = allContent.find(c => c.estado === "approved");
-  document.getElementById("next-date").textContent = next ? `${next.fecha_propuesta_publicacion} ${next.hora_propuesta}` : "—";
+  document.getElementById("count-pending").textContent = allContent.filter(c => c.data.estado === "pending").length;
+  document.getElementById("count-approved").textContent = allContent.filter(c => c.data.estado === "approved").length;
+  const next = allContent.find(c => c.data.estado === "approved");
+  document.getElementById("next-date").textContent = next ? `${next.data.fecha_propuesta_publicacion} ${next.data.hora_propuesta}` : "—";
 }
 
-function approve(id) {
-  const item = allContent.find(c => c.id === id);
-  if (!item) return;
+async function approve(id) {
+  const entry = allContent.find(c => c.data.id === id);
+  if (!entry) return;
+  const item = entry.data;
+  const file = entry.file;
   item.estado = "approved";
-  render(document.querySelector(".filter.active")?.dataset?.filter || "all");
+
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(item, null, 2))));
+  const resp = await api(`/contents/content/pending/${file.name}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      message: `✅ Aprobado: ${item.tipo} - ${item.id}`,
+      content: content,
+      sha: file.sha,
+      branch: GITHUB_BRANCH
+    })
+  });
+  if (resp.ok) {
+    allContent = allContent.filter(c => c.data.id !== id);
+    render(document.querySelector(".filter.active")?.dataset?.filter || "all");
+  } else {
+    alert("Error al aprobar. ¿El token tiene permisos de escritura?");
+  }
 }
 
-function reject(id) {
-  const item = allContent.find(c => c.id === id);
-  if (!item) return;
+async function reject(id) {
+  const entry = allContent.find(c => c.data.id === id);
+  if (!entry) return;
+  const item = entry.data;
+  const file = entry.file;
   item.estado = "rejected";
-  render(document.querySelector(".filter.active")?.dataset?.filter || "all");
-}
 
-function edit(id) {
-  const item = allContent.find(c => c.id === id);
-  if (!item) return;
-  const nuevo = prompt("Edita el caption:", item.contenido.caption);
-  if (nuevo) item.contenido.caption = nuevo;
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(item, null, 2))));
+  await api(`/contents/content/pending/${file.name}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      message: `❌ Rechazado: ${item.tipo} - ${item.id}`,
+      content: content,
+      sha: file.sha,
+      branch: GITHUB_BRANCH
+    })
+  });
+  allContent = allContent.filter(c => c.data.id !== id);
   render(document.querySelector(".filter.active")?.dataset?.filter || "all");
 }
 
