@@ -4,16 +4,32 @@
   "fecha_generacion": "2026-05-16",
   "fecha_propuesta_publicacion": "2026-05-25",
   "hora_propuesta": "12:00",
-  "estado": "pending",
+  "estado": "approved",
   "plataforma": "instagram",
   "contenido": {
     "caption": "No somos una agencia tradicional. 🤖\n\nSomos NexoIA.\n\nUsamos inteligencia artificial para hacer lo que una agencia hace, pero:\n• Más rápido\n• Más económico\n• Sin contratos largos\n• Sin reuniones eternas\n\n20+ posts al mes con IA para negocios en Cali.\nDesde $150K.\n\n¿Probamos un mes?\n📩 nexoia.cali@gmail.com\n\n#NexoIA #AgenciaIA #MarketingDigital #Cali #Innovacion",
-    "hashtags": ["#NexoIA", "#AgenciaIA", "#MarketingDigital", "#Cali", "#Innovacion", "#IAParaNegocios"],
+    "hashtags": [
+      "#NexoIA",
+      "#AgenciaIA",
+      "#MarketingDigital",
+      "#Cali",
+      "#Innovacion",
+      "#IAParaNegocios"
+    ],
     "visual": {
       "descripcion": "Fondo oscuro #06100A. Icono de robot 🤖 al lado de un icono de oficina 🏢, con una flecha verde apuntando de robot hacia oficina. Texto: 'IA ≠ Agencia tradicional' en Fraunces. Subtítulo explicativo. Logo NexoIA.",
       "tamano": "1080x1080",
-      "colores": {"fondo": "#06100A", "texto": "#EFF9F4", "acento": "#4DBA87"},
-      "elementos": ["Comparación IA vs Agencia", "Flecha de transformación", "Texto diferenciador", "Logo NexoIA"]
+      "colores": {
+        "fondo": "#06100A",
+        "texto": "#EFF9F4",
+        "acento": "#4DBA87"
+      },
+      "elementos": [
+        "Comparación IA vs Agencia",
+        "Flecha de transformación",
+        "Texto diferenciador",
+        "Logo NexoIA"
+      ]
     }
   }
 }
