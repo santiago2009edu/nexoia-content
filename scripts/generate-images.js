@@ -8,18 +8,31 @@ const GITHUB_RAW = "https://raw.githubusercontent.com/santiago2009edu/nexoia-con
 
 const W = 1080, H = 1080;
 const STORY_H = 1920;
-const COLORS = { bg: "#06100A", text: "#EFF9F4", accent: "#4DBA87" };
+
+const PALETTES = [
+  { bg: "#06100A", accent1: "#4DBA87", accent2: "#2E9E67", text: "#EFF9F4" },
+  { bg: "#0A1628", accent1: "#1E90FF", accent2: "#0D4F8B", text: "#E8F4FD" },
+  { bg: "#1A0A0A", accent1: "#E05252", accent2: "#8B2020", text: "#FDE8E8" },
+  { bg: "#1A1628", accent1: "#E8A838", accent2: "#B8860B", text: "#FDF4E0" },
+  { bg: "#0D1F13", accent1: "#4DBA87", accent2: "#2E9E67", text: "#EFF9F4" },
+  { bg: "#2D1B2E", accent1: "#E8A838", accent2: "#8B5E3C", text: "#FDF4E0" },
+  { bg: "#06100A", accent1: "#8AABFF", accent2: "#5E7FCC", text: "#EFF9F4" },
+  { bg: "#101010", accent1: "#FFFFFF", accent2: "#AAAAAA", text: "#FFFFFF" },
+];
+
+function getPalette(id) {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) hash = ((hash << 5) - hash) + id.charCodeAt(i);
+  return PALETTES[Math.abs(hash) % PALETTES.length];
+}
 
 function logo(size) {
   const r = size * 0.5;
-  return `<g transform="translate(${size},${size})">
-    <circle cx="0" cy="0" r="${r}" fill="none" stroke="${COLORS.accent}" stroke-width="4"/>
-    <circle cx="${-r*0.7}" cy="${-r*0.7}" r="${r*0.45}" fill="none" stroke="${COLORS.accent}" stroke-width="3"/>
-    <circle cx="${r*0.7}" cy="${-r*0.7}" r="${r*0.45}" fill="none" stroke="${COLORS.accent}" stroke-width="3"/>
-    <circle cx="${-r*0.7}" cy="${r*0.7}" r="${r*0.45}" fill="none" stroke="${COLORS.accent}" stroke-width="3"/>
-    <line x1="${r*0.25}" y1="${r*0.25}" x2="${-r*0.7}" y2="${-r*0.7}" stroke="${COLORS.accent}" stroke-width="2"/>
-    <line x1="${-r*0.25}" y1="${r*0.25}" x2="${r*0.7}" y2="${-r*0.7}" stroke="${COLORS.accent}" stroke-width="2"/>
-    <line x1="${-r*0.25}" y1="${-r*0.25}" x2="${-r*0.7}" y2="${r*0.7}" stroke="${COLORS.accent}" stroke-width="2"/>
+  return `<g transform="translate(${size * 1.2},${size * 1.2})" opacity="0.8">
+    <circle cx="0" cy="0" r="${r}" fill="none" stroke="currentColor" stroke-width="3"/>
+    <circle cx="${-r*0.6}" cy="${-r*0.6}" r="${r*0.35}" fill="none" stroke="currentColor" stroke-width="2.5"/>
+    <circle cx="${r*0.6}" cy="${-r*0.6}" r="${r*0.35}" fill="none" stroke="currentColor" stroke-width="2.5"/>
+    <circle cx="${-r*0.6}" cy="${r*0.6}" r="${r*0.35}" fill="none" stroke="currentColor" stroke-width="2.5"/>
   </g>`;
 }
 
@@ -39,115 +52,156 @@ function wrapText(text, maxChars) {
   return lines;
 }
 
-function makePostSVG(title, subtitle, cta, extra = "") {
-  const lines = wrapText(title, 30);
-  const lineH = 70;
-  const startY = 400 - (lines.length - 1) * lineH * 0.5;
+function gradients(p) {
+  return `
+    <defs>
+      <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:${p.bg}"/>
+        <stop offset="100%" style="stop-color:${p.bg}dd"/>
+      </linearGradient>
+      <linearGradient id="accent-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:${p.accent1};stop-opacity:0.15"/>
+        <stop offset="100%" style="stop-color:${p.accent2};stop-opacity:0.05"/>
+      </linearGradient>
+      <linearGradient id="text-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:${p.text}"/>
+        <stop offset="100%" style="stop-color:${p.text}cc"/>
+      </linearGradient>
+    </defs>`;
+}
+
+function makePostSVG(id, title, subtitle, cta, extra = "") {
+  const p = getPalette(id);
+  const lines = wrapText(title, 28);
+  const lineH = 72;
+  const startY = 380 - (lines.length - 1) * lineH * 0.5;
   const textElements = lines.map((l, i) =>
-    `<text x="540" y="${startY + i * lineH}" font-family="Georgia,serif" font-size="52" fill="${COLORS.text}" text-anchor="middle" font-weight="bold">${l}</text>`
+    `<text x="540" y="${startY + i * lineH}" font-family="Georgia,serif" font-size="${lines.length > 3 ? 44 : 52}" fill="url(#text-grad)" text-anchor="middle" font-weight="bold">${l}</text>`
   ).join("\n");
-  return `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
-    <rect width="${W}" height="${H}" fill="${COLORS.bg}"/>
-    <circle cx="540" cy="540" r="540" fill="${COLORS.accent}" opacity="0.03"/>
-    <circle cx="270" cy="810" r="400" fill="${COLORS.accent}" opacity="0.02"/>
-    <circle cx="810" cy="270" r="300" fill="${COLORS.accent}" opacity="0.02"/>
-    ${logo(80)}
+  return `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg" style="color:${p.accent1}">
+    ${gradients(p)}
+    <rect width="${W}" height="${H}" fill="url(#bg-grad)"/>
+    <rect width="${W}" height="${H}" fill="url(#accent-grad)"/>
+    <circle cx="540" cy="540" r="540" fill="${p.accent1}" opacity="0.03"/>
+    <circle cx="270" cy="810" r="350" fill="${p.accent2}" opacity="0.04"/>
+    <circle cx="810" cy="270" r="250" fill="${p.accent1}" opacity="0.03"/>
+    <line x1="0" y1="0" x2="${W}" y2="${H}" stroke="${p.accent1}" stroke-width="1" opacity="0.06"/>
+    <line x1="${W}" y1="0" x2="0" y2="${H}" stroke="${p.accent1}" stroke-width="1" opacity="0.06"/>
+    <text x="540" y="100" font-family="sans-serif" font-size="12" fill="${p.accent1}" text-anchor="middle" opacity="0.5" letter-spacing="6">NEXO IA</text>
+    ${logo(60)}
     ${textElements}
-    ${subtitle ? `<text x="540" y="${startY + lines.length * lineH + 20}" font-family="sans-serif" font-size="24" fill="${COLORS.accent}" text-anchor="middle">${subtitle}</text>` : ""}
-    ${cta ? `<text x="540" y="920" font-family="sans-serif" font-size="18" fill="${COLORS.accent}" text-anchor="middle" opacity="0.7">${cta}</text>` : ""}
+    ${subtitle ? `<text x="540" y="${startY + lines.length * lineH + 24}" font-family="sans-serif" font-size="22" fill="${p.accent1}" text-anchor="middle">${subtitle}</text>` : ""}
+    ${cta ? `<text x="540" y="920" font-family="sans-serif" font-size="16" fill="${p.accent1}" text-anchor="middle" opacity="0.6">${cta}</text>` : ""}
     ${extra}
   </svg>`;
 }
 
-function makeStorySVG(title, subtitle, cta) {
-  const lines = wrapText(title, 25);
-  const lineH = 70;
+function makeStorySVG(id, title, subtitle, cta) {
+  const p = getPalette(id);
+  const lines = wrapText(title, 22);
+  const lineH = 72;
   const startY = 700 - (lines.length - 1) * lineH * 0.5;
   const textElements = lines.map((l, i) =>
-    `<text x="540" y="${startY + i * lineH}" font-family="Georgia,serif" font-size="48" fill="${COLORS.text}" text-anchor="middle" font-weight="bold">${l}</text>`
+    `<text x="540" y="${startY + i * lineH}" font-family="Georgia,serif" font-size="${lines.length > 3 ? 40 : 48}" fill="url(#text-grad)" text-anchor="middle" font-weight="bold">${l}</text>`
   ).join("\n");
-  return `<svg width="${W}" height="${STORY_H}" xmlns="http://www.w3.org/2000/svg">
-    <rect width="${W}" height="${STORY_H}" fill="${COLORS.bg}"/>
-    <circle cx="540" cy="960" r="600" fill="${COLORS.accent}" opacity="0.03"/>
-    <circle cx="270" cy="1400" r="450" fill="${COLORS.accent}" opacity="0.02"/>
-    ${logo(100)}
-    <text x="540" y="200" font-family="sans-serif" font-size="16" fill="${COLORS.accent}" text-anchor="middle" letter-spacing="4">${subtitle || "NEXO IA"}</text>
+  return `<svg width="${W}" height="${STORY_H}" xmlns="http://www.w3.org/2000/svg" style="color:${p.accent1}">
+    ${gradients(p)}
+    <rect width="${W}" height="${STORY_H}" fill="url(#bg-grad)"/>
+    <rect width="${W}" height="${STORY_H}" fill="url(#accent-grad)"/>
+    <circle cx="540" cy="960" r="600" fill="${p.accent1}" opacity="0.03"/>
+    <circle cx="270" cy="1400" r="400" fill="${p.accent2}" opacity="0.04"/>
+    <circle cx="810" cy="400" r="300" fill="${p.accent1}" opacity="0.03"/>
+    <line x1="0" y1="0" x2="${W}" y2="${STORY_H}" stroke="${p.accent1}" stroke-width="1" opacity="0.06"/>
+    <line x1="${W}" y1="0" x2="0" y2="${STORY_H}" stroke="${p.accent1}" stroke-width="1" opacity="0.06"/>
+    ${logo(80)}
+    <text x="540" y="200" font-family="sans-serif" font-size="14" fill="${p.accent1}" text-anchor="middle" opacity="0.5" letter-spacing="5">${subtitle || "NEXO IA"}</text>
     ${textElements}
-    ${cta ? `<text x="540" y="1600" font-family="sans-serif" font-size="22" fill="${COLORS.accent}" text-anchor="middle" opacity="0.8">${cta}</text>` : ""}
-    <text x="540" y="1760" font-family="sans-serif" font-size="14" fill="${COLORS.text}" opacity="0.3" text-anchor="middle">nexoia.cali@gmail.com</text>
+    ${cta ? `<rect x="340" y="1500" width="400" height="56" rx="28" fill="${p.accent1}" opacity="0.9"/><text x="540" y="1536" font-family="sans-serif" font-size="18" fill="${p.bg}" text-anchor="middle" font-weight="bold">${cta}</text>` : ""}
+    <text x="540" y="1800" font-family="sans-serif" font-size="13" fill="${p.accent1}" opacity="0.3" text-anchor="middle">@nexoia_cali</text>
   </svg>`;
 }
 
-function makeSlideSVG(slideNum, totalSlides, text, title) {
-  const lines = wrapText(text, 35);
-  const lineH = 50;
+function makeSlideSVG(id, slideNum, totalSlides, text, title) {
+  const p = getPalette(id);
+  const lines = wrapText(text, 32);
+  const lineH = 52;
   const startY = 450 - (lines.length - 1) * lineH * 0.5;
   const textElements = lines.map((l, i) =>
-    `<text x="540" y="${startY + i * lineH}" font-family="sans-serif" font-size="30" fill="${COLORS.text}" text-anchor="middle">${l}</text>`
+    `<text x="540" y="${startY + i * lineH}" font-family="sans-serif" font-size="28" fill="${p.text}" text-anchor="middle" opacity="0.9">${l}</text>`
   ).join("\n");
-  return `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
-    <rect width="${W}" height="${H}" fill="${COLORS.bg}"/>
-    <circle cx="540" cy="540" r="540" fill="${COLORS.accent}" opacity="0.03"/>
-    <rect x="0" y="0" width="${W}" height="6" fill="${COLORS.accent}" opacity="0.3"/>
-    ${logo(60)}
-    ${title ? `<text x="540" y="250" font-family="Georgia,serif" font-size="42" fill="${COLORS.text}" text-anchor="middle" font-weight="bold">${title}</text>` : ""}
+  const numSize = 80;
+  return `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg" style="color:${p.accent1}">
+    ${gradients(p)}
+    <rect width="${W}" height="${H}" fill="url(#bg-grad)"/>
+    <rect width="${W}" height="${H}" fill="url(#accent-grad)"/>
+    <circle cx="540" cy="540" r="540" fill="${p.accent1}" opacity="0.03"/>
+    <circle cx="810" cy="810" r="250" fill="${p.accent2}" opacity="0.04"/>
+    <text x="540" y="110" font-family="Georgia,serif" font-size="${numSize}" fill="${p.accent1}" text-anchor="middle" font-weight="bold" opacity="0.15">${slideNum}</text>
+    <rect x="380" y="140" width="320" height="3" rx="1.5" fill="${p.accent1}" opacity="0.3"/>
+    ${logo(50)}
+    ${title ? `<text x="540" y="280" font-family="Georgia,serif" font-size="40" fill="url(#text-grad)" text-anchor="middle" font-weight="bold">${title}</text>` : ""}
     ${textElements}
-    <text x="540" y="980" font-family="sans-serif" font-size="14" fill="${COLORS.accent}" text-anchor="middle" opacity="0.5">${slideNum}/${totalSlides}</text>
+    <circle cx="540" cy="980" r="24" fill="none" stroke="${p.accent1}" stroke-width="2" opacity="0.3"/>
+    <text x="540" y="987" font-family="sans-serif" font-size="14" fill="${p.accent1}" text-anchor="middle" opacity="0.5">${slideNum}/${totalSlides}</text>
   </svg>`;
 }
 
 async function generateImage(filename, svgContent) {
   const outPath = path.join(ASSETS_DIR, filename);
-  await sharp(Buffer.from(svgContent)).jpeg({ quality: 90 }).toFile(outPath);
-  console.log(`  ✅ ${filename}`);
+  await sharp(Buffer.from(svgContent)).jpeg({ quality: 92 }).toFile(outPath);
   return `${GITHUB_RAW}/${filename}`;
+}
+
+function makeCarruselSlideImages(id, slides) {
+  const urls = [];
+  for (let i = 0; i < slides.length; i++) {
+    const text = slides[i];
+    const title = i === 0 ? id : undefined;
+    const svg = makeSlideSVG(id, i + 1, slides.length, text, title);
+    const filename = `${id}-${i + 1}.jpg`;
+    const url = generateImage(filename, svg);
+    urls.push({ filename, url, promise: url });
+  }
+  return urls;
 }
 
 async function processFile(filePath) {
   const content = JSON.parse(fs.readFileSync(filePath, "utf-8"));
   const { id, tipo, contenido } = content;
-  const visual = contenido.visual || {};
   const caption = contenido.caption || "";
-  const cta = "nexoia.cali@gmail.com";
-  const sizes = { post: "1080x1080", carrusel: "1080x1080", story: "1080x1920", reel: "1080x1920" };
-
-  console.log(`\n📄 ${id} (${tipo})`);
+  const cta = "Diagnóstico gratis → nexoia.cali@gmail.com";
 
   const images = [];
 
-  if (tipo === "story") {
-    const url = await generateImage(`${id}.jpg`, makeStorySVG(caption, id, cta));
-    images.push(url);
-  } else if (tipo === "reel") {
-    const url = await generateImage(`${id}.jpg`, makeStorySVG(caption, id, cta));
+  if (tipo === "story" || tipo === "reel") {
+    const url = await generateImage(`${id}.jpg`, makeStorySVG(id, caption, id, "Diagnóstico gratis"));
     images.push(url);
   } else if (tipo === "carrusel") {
     const slides = contenido.carrusel_slides || [caption];
     for (let i = 0; i < slides.length; i++) {
-      const slideText = slides[i];
-      const title = i === 0 ? visual.elementos?.[0] || id : undefined;
-      const url = await generateImage(`${id}-slide-${i + 1}.jpg`, makeSlideSVG(i + 1, slides.length, slideText, title));
+      const title = i === 0 ? id : undefined;
+      const url = await generateImage(`${id}-${i + 1}.jpg`, makeSlideSVG(id, i + 1, slides.length, slides[i], title));
       images.push(url);
     }
   } else {
-    const subtitle = visual.elementos?.[1] || "";
-    const url = await generateImage(`${id}.jpg`, makePostSVG(caption, subtitle, cta));
+    const subtitle = contenido.visual?.descripcion?.substring(0, 50) || "";
+    const url = await generateImage(`${id}.jpg`, makePostSVG(id, caption, subtitle, cta));
     images.push(url);
   }
 
-  content.image_urls = images;
-  content.image_url = images[0]; // primary image
+  content.image_url = images[0];
   fs.writeFileSync(filePath, JSON.stringify(content, null, 2));
-  console.log(`  ✅ ${id} actualizado con image_url`);
+  console.log(`  ${id} → ${images.length} imagen(es)`);
 }
 
 async function main() {
   if (!fs.existsSync(ASSETS_DIR)) fs.mkdirSync(ASSETS_DIR, { recursive: true });
-  const files = fs.readdirSync(PENDING_DIR).filter(f => f.endsWith(".json"));
+  const files = fs.readdirSync(PENDING_DIR).filter(f => f.endsWith(".json") && f.startsWith("post-1") || f.startsWith("carrusel-1") || f.startsWith("story-1") || f.startsWith("reel-1"));
   for (const f of files) {
+    console.log(`\n${f}`);
     await processFile(path.join(PENDING_DIR, f));
   }
-  console.log("\n🎉 Todas las imágenes generadas");
+  console.log("\nDone");
 }
 
 main().catch(console.error);

@@ -1,0 +1,19 @@
+{
+  "id": "post-107",
+  "tipo": "post",
+  "fecha_generacion": "2026-05-17",
+  "fecha_propuesta_publicacion": "2026-05-26",
+  "hora_propuesta": "10:00",
+  "estado": "pending",
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/post-107.jpg",
+  "caption": "El hashtag correcto puede triplicar tu alcance.\n\nEn Cali, las personas buscan:\n• #RestaurantesCali\n• #PeluqueriasCali\n• #ServiciosCali\n• #LoMejorDeCali\n• #CaliColombia\n\nNexoIA investiga y usa los hashtags que realmente funcionan para tu tipo de negocio en tu zona.\n\nNo es magia. Es estrategia.",
+  "contenido": {
+    "caption": "El hashtag correcto puede triplicar tu alcance.\n\nEn Cali, las personas buscan hashtags locales.\n\nNexoIA investiga y usa los que funcionan para tu negocio.",
+    "hashtags": ["HashtagsCali", "EstrategiaDigital", "NexoIA", "AlcanceOrganico", "MarketingLocal", "Cali"],
+    "visual": {
+      "descripcion": "Nube de hashtags populares en Cali. Texto: 'Hashtags que funcionan en Cali' con diseño colorido.",
+      "tamano": "1080x1080 (1:1)",
+      "colores": ["#06100A", "#4DBA87", "#E8A838", "#1A3028"]
+    }
+  }
+}

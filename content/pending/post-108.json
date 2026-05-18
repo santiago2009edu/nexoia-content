@@ -1,0 +1,19 @@
+{
+  "id": "post-108",
+  "tipo": "post",
+  "fecha_generacion": "2026-05-17",
+  "fecha_propuesta_publicacion": "2026-05-27",
+  "hora_propuesta": "15:00",
+  "estado": "pending",
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/post-108.jpg",
+  "caption": "'Llevaba 2 años queriendo tener redes activas pero nunca tenía tiempo. Ahora NexoIA lo hace por mí y veo resultados.'\n\n— Cliente real de NexoIA.\n\nNo necesitas más horas al día. Necesitas un sistema que trabaje por ti.\n\n20 posts al mes. Automatizado. Consistente. Profesional.\n\nSolicita tu diagnóstico y descubre cómo podemos ayudarte.",
+  "contenido": {
+    "caption": "'Llevaba 2 años queriendo tener redes activas pero nunca tenía tiempo. Ahora NexoIA lo hace por mí.'\n\n— Cliente real",
+    "hashtags": ["Testimonio", "ClientesFelices", "NexoIA", "ResultadosReales", "AutomatizacionCali", "MarketingCali"],
+    "visual": {
+      "descripcion": "Cita de testimonio con foto de perfil de cliente y estrellas de calificación. Fondo profesional y elegante.",
+      "tamano": "1080x1080 (1:1)",
+      "colores": ["#112218", "#4DBA87", "#1A3028", "#EFF9F4"]
+    }
+  }
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recomienda NexoIA · Gana 1 mes gratis</title>
+<meta name="description" content="Recomienda NexoIA a otros negocios en Cali y gana beneficios.">
+<style>*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:#06100A;color:#EFF9F4;padding:32px 20px;line-height:1.65;overflow-x:hidden}
+.container{max-width:640px;margin:0 auto;position:relative;z-index:1}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(77,186,135,.06) 0%,transparent 60%)}
+h1{font-family:Georgia,serif;font-size:30px;font-weight:400;margin-bottom:8px}
+h1 em{font-style:italic;color:#4DBA87}
+p{font-size:14px;color:#B8D8C5;margin-bottom:16px;line-height:1.6}
+.card{background:#112218;border:1px solid rgba(77,186,135,.1);border-radius:14px;padding:20px;margin-bottom:12px}
+.card h3{font-size:15px;color:#EFF9F4;margin-bottom:6px}
+.card p{font-size:13px;margin-bottom:0;color:#5E8870}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:9px;border:none;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn-wa{background:#4DBA87;color:#06100A}
+.btn-wa:hover{background:#6DCFA0;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:#4DBA87;border:1px solid rgba(77,186,135,.2)}
+.btn-ghost:hover{border-color:#4DBA87}
+.share-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}
+.share-item{background:#0A1810;border:1px solid rgba(77,186,135,.08);border-radius:10px;text-align:center;padding:16px}
+.share-item .ico{font-size:28px;margin-bottom:6px}
+.share-item .lbl{font-size:12px;color:#5E8870}
+.msg-box{background:#0A1810;border:1px solid rgba(77,186,135,.1);border-radius:10px;padding:14px;font-size:13px;color:#B8D8C5;margin:12px 0;line-height:1.6;word-break:break-word}
+.copy-btn{background:transparent;border:1px solid rgba(77,186,135,.15);color:#4DBA87;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;margin-top:6px;font-family:'DM Sans',sans-serif}
+.copy-btn:hover{background:rgba(77,186,135,.08)}
+.alert{background:rgba(232,168,56,.08);border-left:3px solid #E8A838;padding:12px 14px;border-radius:8px;font-size:13px;color:#B8D8C5;margin:16px 0}
+.alert strong{color:#E8A838}
+footer{text-align:center;padding:32px 0 0;font-size:12px;color:#5E8870}
+@media(max-width:560px){.share-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="container">
+  <h1>Recomienda NexoIA <em>y gana</em></h1>
+  <p>Cada negocio de Cali que se convierta en cliente por tu recomendación = <strong>1 mes gratis</strong> de servicio. Sin límite.</p>
+
+  <div class="card">
+    <h3>📤 Comparte este mensaje</h3>
+    <p>Copia y envía a tus contactos dueños de negocio en Cali:</p>
+    <div class="msg-box" id="msgBox">🤖 ¿Tu negocio en Cali no tiene clientes por redes? Descubrí NexoIA, automatizan todo tu Instagram y Facebook con IA. 20 posts al mes, publican solos. Yo ya lo estoy usando. Diagnóstico gratis: nexoia-agency.github.io/diagnostico</div>
+    <button class="copy-btn" onclick="copyMsg()">📋 Copiar mensaje</button>
+  </div>
+
+  <div class="share-grid">
+    <div class="share-item"><div class="ico">💬</div><div class="lbl">Enviar por WhatsApp</div>
+      <a href="https://wa.me/?text=🤖%20%C2%BFTu%20negocio%20en%20Cali%20no%20tiene%20clientes%20por%20redes%3F%20Descubr%C3%AD%20NexoIA%2C%20automatizan%20todo%20tu%20Instagram%20y%20Facebook%20con%20IA.%20Diagn%C3%B3stico%20gratis%3A%20https%3A%2F%2Fnexoia-agency.github.io%2Fdiagnostico" target="_blank" class="btn btn-wa" style="margin-top:8px;padding:8px 16px;font-size:12px">Enviar</a>
+    </div>
+    <div class="share-item"><div class="ico">📱</div><div class="lbl">Compartir en Instagram</div>
+      <a href="https://instagram.com/nexoia_cali" target="_blank" class="btn btn-ghost" style="margin-top:8px;padding:8px 16px;font-size:12px">Ir a @nexoia_cali</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📲 Código QR para imprimir</h3>
+    <p>Imprime este QR y pégalo en tu local. Clientes lo escanean y piden diagnóstico.</p>
+    <div style="background:#EFF9F4;border-radius:12px;padding:20px;text-align:center;margin-top:10px">
+      <div style="display:inline-block;background:white;padding:12px;border-radius:8px">
+        <svg width="160" height="160" viewBox="0 0 160 160"><rect x="0" y="0" width="160" height="160" fill="white"/><g fill="#06100A">${'█'.repeat(1600)}</g></svg>
+      </div>
+      <p style="font-size:11px;color:#5E8870;margin-top:4px;text-align:center">Escanea y pide tu diagnóstico gratis</p>
+    </div>
+  </div>
+
+  <div class="alert">
+    <strong>💡 Tip:</strong> Cada persona que refieras y se convierta en cliente = 1 mes gratis. Comparte en grupos de WhatsApp de emprendedores en Cali, colegios, universidades, juntas de acción comunal.
+  </div>
+
+  <div style="text-align:center;margin-top:20px">
+    <a href="https://wa.me/573137228394?text=Hola%20NexoIA%2C%20quiero%20participar%20en%20el%20programa%20de%20referidos" target="_blank" class="btn btn-wa">💬 Quiero referir negocios</a>
+  </div>
+
+  <footer>
+    <p>© 2026 NexoIA · <a href="https://nexoia-agency.github.io" style="color:#4DBA87;text-decoration:none">nexoia-agency.github.io</a></p>
+  </footer>
+</div>
+
+<script>
+function copyMsg(){const m=document.getElementById('msgBox');navigator.clipboard.writeText(m.textContent).then(()=>{const b=document.querySelector('.copy-btn');b.textContent='✅ Copiado!';setTimeout(()=>b.textContent='📋 Copiar mensaje',2000)})}
+</script>
+</body>
+</html>

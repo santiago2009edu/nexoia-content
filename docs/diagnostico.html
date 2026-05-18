@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Digital Gratis · NexoIA · Cali</title>
+<meta name="description" content="Recibe un análisis gratuito de tus redes sociales. Te decimos qué mejorar para atraer más clientes en Cali.">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#06100A;color:#EFF9F4;overflow-x:hidden;line-height:1.65}
+::selection{background:rgba(77,186,135,.22);color:#EFF9F4}
+.grain{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 75% 55% at -5% 5%,rgba(30,120,70,.07) 0%,transparent 55%),radial-gradient(ellipse 55% 45% at 105% 95%,rgba(77,186,135,.05) 0%,transparent 50%)}
+.grain2{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.15;background-image:radial-gradient(rgba(77,186,135,.18) 1px,transparent 1px);background-size:28px 28px}
+.container{max-width:720px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+header{text-align:center;padding:48px 0 24px}
+.logo{width:48px;height:48px;background:#4DBA87;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px}
+h1{font-family:Georgia,serif;font-size:clamp(28px,5vw,42px);font-weight:400;line-height:1.15;margin-bottom:12px}
+h1 em{font-style:italic;color:#4DBA87}
+.sub{font-size:15px;color:#B8D8C5;max-width:520px;margin:0 auto}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:24px 0}
+.benefit{background:#112218;border:1px solid rgba(77,186,135,.09);border-radius:10px;padding:16px;text-align:center}
+.benefit .ico{font-size:24px;margin-bottom:6px}
+.benefit p{font-size:13px;color:#B8D8C5;line-height:1.4}
+.form-box{background:#112218;border:1px solid rgba(77,186,135,.12);border-radius:16px;padding:32px 28px;margin:20px 0}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;color:#5E8870;margin-bottom:4px;font-weight:500;letter-spacing:.5px}
+.field input,.field select,.field textarea{width:100%;padding:13px 14px;border-radius:8px;border:1px solid rgba(77,186,135,.15);background:#09160D;color:#EFF9F4;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#4DBA87}
+.field textarea{resize:vertical;min-height:80px}
+.field select option{background:#06100A;color:#EFF9F4}
+.btn{width:100%;padding:15px;border:none;border-radius:10px;background:#4DBA87;color:#06100A;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn:hover{background:#6DCFA0;transform:translateY(-1px)}
+.secure{text-align:center;font-size:12px;color:#5E8870;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:6px}
+.testimonios{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:24px 0}
+.t-card{background:#09160D;border:1px solid rgba(77,186,135,.08);border-radius:10px;padding:16px}
+.t-card .name{font-size:12px;font-weight:600;color:#EFF9F4;margin-bottom:2px}
+.t-card .text{font-size:12px;color:#5E8870;line-height:1.5}
+footer{text-align:center;padding:32px 0;color:#5E8870;font-size:13px}
+footer a{color:#4DBA87;text-decoration:none}
+.wa-link{display:inline-flex;align-items:center;gap:6px;background:rgba(77,186,135,.08);border:1px solid rgba(77,186,135,.15);padding:8px 16px;border-radius:20px;font-size:13px;color:#4DBA87;margin-top:12px;text-decoration:none}
+@media(max-width:560px){.grid,.testimonios{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="grain"></div><div class="grain2"></div>
+
+<header class="container">
+  <div class="logo"><svg width="22" height="22" viewBox="0 0 26 26" fill="none"><circle cx="7" cy="13" r="3" fill="#06100A"/><circle cx="19" cy="7" r="3" fill="#06100A"/><circle cx="19" cy="19" r="3" fill="#06100A"/><line x1="7" y1="13" x2="19" y2="7" stroke="#06100A" stroke-width="2"/><line x1="7" y1="13" x2="19" y2="19" stroke="#06100A" stroke-width="2"/><line x1="19" y1="7" x2="19" y2="19" stroke="#06100A" stroke-width="2"/></svg></div>
+  <h1>Diagnóstico Digital <em>Gratuito</em></h1>
+  <p class="sub">Analizamos tus redes sociales y te decimos exactamente qué mejorar para atraer más clientes en Cali.</p>
+</header>
+
+<div class="container">
+  <div class="grid">
+    <div class="benefit"><div class="ico">📊</div><p>Análisis de Instagram y Facebook</p></div>
+    <div class="benefit"><div class="ico">🔍</div><p>Evaluación vs competencia local</p></div>
+    <div class="benefit"><div class="ico">✅</div><p>Oportunidades de mejora</p></div>
+    <div class="benefit"><div class="ico">📋</div><p>Plan de acción personalizado</p></div>
+  </div>
+
+  <div class="form-box">
+    <form id="leadForm" onsubmit="sendWA(event)">
+      <div class="field">
+        <label>Tu nombre</label>
+        <input type="text" id="nombre" required placeholder="Ej: Carlos">
+      </div>
+      <div class="field">
+        <label>Nombre del negocio</label>
+        <input type="text" id="negocio" required placeholder="Ej: Restaurante El Sabor">
+      </div>
+      <div class="field">
+        <label>Tipo de negocio</label>
+        <select id="tipo">
+          <option value="">Selecciona...</option>
+          <option>Restaurante / Comida</option>
+          <option>Peluquería / Salón</option>
+          <option>Consultorio / Salud</option>
+          <option>Tienda / Boutique</option>
+          <option>Servicio técnico</option>
+          <option>Academia / Gimnasio</option>
+          <option>Emprendimiento</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Red social principal</label>
+        <input type="text" id="red" placeholder="Ej: @mi_negocio">
+      </div>
+      <div class="field">
+        <label>Ciudad / Barrio</label>
+        <input type="text" id="ciudad" required placeholder="Ej: Cali, Valle">
+      </div>
+      <div class="field">
+        <label>WhatsApp</label>
+        <input type="tel" id="tel" required placeholder="Ej: 313 722 8394">
+      </div>
+      <button class="btn" type="submit">💬 Enviar y recibir diagnóstico</button>
+    </form>
+    <div class="secure">🔒 Tus datos son seguros. Solo para uso interno.</div>
+  </div>
+
+  <div class="testimonios">
+    <div class="t-card"><div class="name">Lina M. · Peluquería</div><div class="text">"Me dijeron exactamente qué estaba haciendo mal. Ahora tengo más clientas."</div></div>
+    <div class="t-card"><div class="name">Carlos R. · Restaurante</div><div class="text">"En una semana subí seguidores solo aplicando lo que me recomendaron."</div></div>
+  </div>
+
+  <div style="text-align:center">
+    <p style="color:#5E8870;font-size:13px">Prefieres escribir directo?</p>
+    <a class="wa-link" href="https://wa.me/573137228394?text=Hola%20NexoIA%2C%20quiero%20mi%20diagn%C3%B3stico%20digital" target="_blank">💬 Escribir por WhatsApp</a>
+  </div>
+
+  <footer>
+    <p>© 2026 NexoIA · <a href="https://nexoia-agency.github.io">nexoia-agency.github.io</a> · <a href="https://instagram.com/nexoia_cali">@nexoia_cali</a></p>
+  </footer>
+</div>
+
+<script>
+function sendWA(e) {
+  e.preventDefault();
+  const n=document.getElementById('nombre').value;
+  const b=document.getElementById('negocio').value;
+  const t=document.getElementById('tipo').value||'No especificado';
+  const r=document.getElementById('red').value||'No tiene';
+  const c=document.getElementById('ciudad').value;
+  const tel=document.getElementById('tel').value;
+  const msg=encodeURIComponent(
+`Nuevo lead - Diagnóstico Digital
+
+Nombre: ${n}
+Negocio: ${b}
+Tipo: ${t}
+Red: ${r}
+Ciudad: ${c}
+WhatsApp: ${tel}`
+  );
+  window.open(`https://wa.me/573137228394?text=${msg}`,'_blank');
+}
+</script>
+</body>
+</html>

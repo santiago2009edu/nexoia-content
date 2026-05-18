@@ -1,0 +1,26 @@
+{
+  "id": "carrusel-103",
+  "tipo": "carrusel",
+  "fecha_generacion": "2026-05-17",
+  "fecha_propuesta_publicacion": "2026-05-30",
+  "hora_propuesta": "11:00",
+  "estado": "pending",
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-103-1.jpg",
+  "caption": "¿Qué incluye NexoIA? 🤖\n\nDesliza y descubre todo lo que hace nuestro sistema por tu negocio.\n\n✅ Contenido diario automático\n✅ Diseño profesional con IA\n✅ Publicación en Instagram + Facebook\n✅ Respuestas a comentarios y DMs\n✅ Reporte mensual de resultados\n\nTodo por una fracción de lo que cuesta una agencia tradicional.",
+  "contenido": {
+    "caption": "¿Qué incluye NexoIA? 🤖 Descubre todo lo que hacemos por tu negocio.",
+    "hashtags": ["NexoIA", "AutomatizacionCali", "GestionRedes", "IACali", "MarketingDigital", "CaliColombia"],
+    "carrusel_slides": [
+      "Slide 1: NexoIA genera y publica tu contenido automáticamente en Instagram y Facebook.",
+      "Slide 2: Diseños profesionales generados con IA adaptados a tu marca.",
+      "Slide 3: Respondemos comentarios y DMs por ti, 24/7.",
+      "Slide 4: Recibes un reporte mensual con resultados y recomendaciones.",
+      "Slide 5: ¿Listo para empezar? Diagnóstico gratis."
+    ],
+    "visual": {
+      "descripcion": "Presentación de servicios de NexoIA con iconos y descripciones. Último slide con CTA contacto.",
+      "tamano": "1080x1080 (1:1)",
+      "colores": ["#06100A", "#4DBA87", "#112218", "#E8A838"]
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "carrusel-101",
+  "tipo": "carrusel",
+  "fecha_generacion": "2026-05-17",
+  "fecha_propuesta_publicacion": "2026-05-28",
+  "hora_propuesta": "12:00",
+  "estado": "pending",
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-101-1.jpg",
+  "caption": "5 pasos para hacer crecer tu negocio en Instagram en Cali 🚀\n\nDesliza para ver la guía completa.\n\n1/5: Optimiza tu perfil\n2/5: Contenido consistente\n3/5: Hashtags locales\n4/5: Interacción real\n5/5: Mide y ajusta\n\nNexoIA te ayuda en cada paso. Diagnóstico gratis.",
+  "contenido": {
+    "caption": "5 pasos para hacer crecer tu negocio en Instagram en Cali 🚀\n\nDesliza para ver la guía completa.",
+    "hashtags": ["GuiaInstagram", "CrecimientoCali", "NexoIA", "MarketingDigital", "TipsRedes", "CaliColombia"],
+    "carrusel_slides": [
+      "Paso 1: Optimiza tu perfil — Bio clara, foto profesional, enlace visible",
+      "Paso 2: Publica 20 veces al mes — Consistencia > Calidad aislada",
+      "Paso 3: Hashtags locales — #Cali #RestaurantesCali #TuSector",
+      "Paso 4: Responde siempre — El algoritmo premia la interacción",
+      "Paso 5: Analiza resultados — Qué funciona hazlo más"
+    ],
+    "visual": {
+      "descripcion": "Serie de 5 diapositivas estilo guía con números grandes e iconos. Cada slide explica un paso.",
+      "tamano": "1080x1080 (1:1)",
+      "colores": ["#06100A", "#4DBA87", "#112218", "#EFF9F4"]
+    }
+  }
+}

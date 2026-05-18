@@ -1,0 +1,19 @@
+{
+  "id": "post-105",
+  "tipo": "post",
+  "fecha_generacion": "2026-05-17",
+  "fecha_propuesta_publicacion": "2026-05-23",
+  "hora_propuesta": "11:00",
+  "estado": "pending",
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/post-105.jpg",
+  "caption": "Google Business Profile + Instagram + Facebook = visibilidad total en Cali.\n\nCuando alguien busca 'restaurante cerca de mí' o 'peluquería en Cali', tu negocio debe aparecer.\n\nNexoIA gestiona tu presencia en las 3 plataformas con contenido consistente y profesional.\n\n¿Ya apareces en Google? Solicita tu diagnóstico y te decimos.",
+  "contenido": {
+    "caption": "Google Business Profile + Instagram + Facebook = visibilidad total en Cali.\n\nCuando alguien busca tu servicio, debes aparecer.\n\nNexoIA gestiona tu presencia en las 3 plataformas.",
+    "hashtags": ["GoogleMyBusiness", "SEOlocal", "CaliColombia", "NexoIA", "MarketingDigital", "VisibilidadOnline"],
+    "visual": {
+      "descripcion": "Mockup de búsqueda en Google mostrando un negocio local. Texto: 'Aparece en Google + Redes' con mapa y estrellas de reseñas.",
+      "tamano": "1080x1080 (1:1)",
+      "colores": ["#FFFFFF", "#4285F4", "#34A853", "#FBBC05", "#EA4335"]
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "post-103",
+  "tipo": "post",
+  "fecha_generacion": "2026-05-17",
+  "fecha_propuesta_publicacion": "2026-05-21",
+  "hora_propuesta": "09:00",
+  "estado": "pending",
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/post-103.jpg",
+  "caption": "¿Consultorio médico en Cali? Tus pacientes buscan en Google e Instagram antes de llamar.\n\nSi no apareces, no existes.\n\nCon NexoIA:\n✅ Contenido educativo sobre tus servicios\n✅ Testimonios de pacientes reales\n✅ Google Business Profile optimizado\n✅ Respuestas automáticas a preguntas frecuentes\n\nEmpieza con un diagnóstico gratis. Descubre qué tan visible eres hoy.",
+  "contenido": {
+    "caption": "¿Consultorio médico en Cali? Tus pacientes buscan en Google e Instagram antes de llamar.\n\nSi no apareces, no existes.\n\nCon NexoIA:\n✅ Contenido educativo sobre tus servicios\n✅ Testimonios de pacientes reales\n✅ Google Business Profile optimizado\n✅ Respuestas automáticas",
+    "hashtags": ["ConsultoriosCali", "SaludCali", "MarketingMedico", "NexoIA", "GoogleBusiness", "CaliColombia"],
+    "visual": {
+      "descripcion": "Consultorio médico moderno y profesional. Texto: 'Que te encuentren fácil' con tonos azules y verdes.",
+      "tamano": "1080x1080 (1:1)",
+      "colores": ["#0A1628", "#1E90FF", "#0D4F8B", "#E8F4FD"]
+    }
+  }
+}
