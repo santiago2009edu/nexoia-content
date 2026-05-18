@@ -4,12 +4,19 @@
   "fecha_generacion": "2026-05-17",
   "fecha_propuesta_publicacion": "2026-05-29",
   "hora_propuesta": "14:00",
-  "estado": "pending",
-  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-102-1.jpg",
+  "estado": "approved",
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-1.jpg",
   "caption": "Los 3 errores que están frenando tu negocio en redes sociales 😱\n\nError 1: Publicar cuando te acuerdas\nError 2: Usar hashtags genéricos\nError 3: No responder los comentarios\n\nDesliza y descubre cómo solucionarlo con IA.\n\nNexoIA corrige estos errores automáticamente.",
   "contenido": {
     "caption": "Los 3 errores que están frenando tu negocio en redes sociales 😱",
-    "hashtags": ["ErroresRedes", "TipsMarketing", "NexoIA", "RedesSociales", "CaliColombia", "EmprendeCali"],
+    "hashtags": [
+      "ErroresRedes",
+      "TipsMarketing",
+      "NexoIA",
+      "RedesSociales",
+      "CaliColombia",
+      "EmprendeCali"
+    ],
     "carrusel_slides": [
       "Error 1: Publicar cuando te acuerdas → Solución: agenda automática con IA",
       "Error 2: Hashtags genéricos → Solución: investigación local automatizada",
@@ -18,7 +25,12 @@
     "visual": {
       "descripcion": "Diseño de 3 errores con iconos rojos de X en cada uno y flecha verde hacia la solución al deslizar.",
       "tamano": "1080x1080 (1:1)",
-      "colores": ["#1A0A0A", "#E05252", "#4DBA87", "#112218"]
+      "colores": [
+        "#1A0A0A",
+        "#E05252",
+        "#4DBA87",
+        "#112218"
+      ]
     }
   }
 }

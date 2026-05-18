@@ -4,16 +4,28 @@
   "fecha_generacion": "2026-05-17",
   "fecha_propuesta_publicacion": "2026-05-20",
   "hora_propuesta": "12:00",
-  "estado": "pending",
-  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/post-102.jpg",
+  "estado": "approved",
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/post-001.jpg",
   "caption": "Tu peluquería o salón puede llenar agenda solo con Instagram.\n\nAsí funciona:\n1. Fotos antes/después de tus mejores trabajos\n2. Clientes etiquetan y comparten = publicidad gratis\n3. Promociones de días con poca reserva\n4. Respuesta automática a los que preguntan 'cuánto cuesta'\n\nNosotros lo hacemos por ti mientras tú trabajas.\n\nSolicita tu diagnóstico gratuito.",
   "contenido": {
     "caption": "Tu peluquería o salón puede llenar agenda solo con Instagram.\n\nAsí funciona:\n1. Fotos antes/después de tus mejores trabajos\n2. Clientes etiquetan y comparten = publicidad gratis\n3. Promociones de días con poca reserva\n4. Respuesta automática a los que preguntan 'cuánto cuesta'\n\nNosotros lo hacemos por ti mientras tú trabajas.",
-    "hashtags": ["PeluqueriasCali", "SalonesCali", "AntesDespues", "NexoIA", "MarketingCali", "CaliColombia"],
+    "hashtags": [
+      "PeluqueriasCali",
+      "SalonesCali",
+      "AntesDespues",
+      "NexoIA",
+      "MarketingCali",
+      "CaliColombia"
+    ],
     "visual": {
       "descripcion": "Antes/después de un corte o peinado profesional. Texto: 'Llena tu agenda con Instagram' con tonos rosas y dorados.",
       "tamano": "1080x1080 (1:1)",
-      "colores": ["#2D1B2E", "#E8A838", "#4A1942", "#1A0A1E"]
+      "colores": [
+        "#2D1B2E",
+        "#E8A838",
+        "#4A1942",
+        "#1A0A1E"
+      ]
     }
   }
 }

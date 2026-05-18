@@ -4,16 +4,27 @@
   "fecha_generacion": "2026-05-17",
   "fecha_propuesta_publicacion": "2026-05-19",
   "hora_propuesta": "10:00",
-  "estado": "pending",
-  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/post-101.jpg",
+  "estado": "approved",
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/post-001.jpg",
   "caption": "¿Sabías que el 78% de los restaurantes en Cali con Instagram activo reportan nuevos clientes cada semana?\n\nEl problema no es la comida, es que nadie sabe que existes.\n\nCon NexoIA automatizamos tu contenido para que siempre estés visible.\n\n✅ Fotos profesionales\n✅ Horarios siempre visibles\n✅ Promociones semanales automáticas\n\nEscríbenos y te mostramos cómo.",
   "contenido": {
     "caption": "¿Sabías que el 78% de los restaurantes en Cali con Instagram activo reportan nuevos clientes cada semana?\n\nEl problema no es la comida, es que nadie sabe que existes.\n\nCon NexoIA automatizamos tu contenido para que siempre estés visible.\n\n✅ Fotos profesionales\n✅ Horarios siempre visibles\n✅ Promociones semanales automáticas\n\nEscríbenos y te mostramos cómo.",
-    "hashtags": ["RestaurantesCali", "MarketingDigitalCali", "NexoIA", "ComidaCali", "AutomatizacionIA", "CaliColombia"],
+    "hashtags": [
+      "RestaurantesCali",
+      "MarketingDigitalCali",
+      "NexoIA",
+      "ComidaCali",
+      "AutomatizacionIA",
+      "CaliColombia"
+    ],
     "visual": {
       "descripcion": "Plato gourmet con iluminación cálida en restaurante de Cali. Texto: 'Tu restaurante merece más clientes' con logo NexoIA.",
       "tamano": "1080x1080 (1:1)",
-      "colores": ["#1A1A2E", "#E94560", "#0F3460"]
+      "colores": [
+        "#1A1A2E",
+        "#E94560",
+        "#0F3460"
+      ]
     }
   }
 }

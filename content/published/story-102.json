@@ -4,16 +4,25 @@
   "fecha_generacion": "2026-05-17",
   "fecha_propuesta_publicacion": "2026-05-21",
   "hora_propuesta": "12:00",
-  "estado": "pending",
-  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/story-102.jpg",
+  "estado": "approved",
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/story-001.jpg",
   "caption": "3 tipos de contenido que debes publicar esta semana:\n\n1. Educativo 📚\n2. Detrás de escena 🎬\n3. Promocional 🏷️\n\nAlterna entre estos y verás crecer tu engagement.",
   "contenido": {
     "caption": "3 tipos de contenido para esta semana",
-    "hashtags": ["TiposContenido", "InstagramTips", "NexoIA"],
+    "hashtags": [
+      "TiposContenido",
+      "InstagramTips",
+      "NexoIA"
+    ],
     "visual": {
       "descripcion": "Story con 3 íconos grandes: libro, cámara, etiqueta. Texto: 'Contenido variado = más alcance'.",
       "tamano": "1080x1920 (9:16)",
-      "colores": ["#0D1F13", "#4DBA87", "#E8A838", "#E05252"]
+      "colores": [
+        "#0D1F13",
+        "#4DBA87",
+        "#E8A838",
+        "#E05252"
+      ]
     }
   }
 }
