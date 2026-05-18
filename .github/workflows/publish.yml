@@ -20,6 +20,9 @@ jobs:
         with:
           token: ${{ github.token }}
 
+      - name: Instalar dependencias
+        run: pip install Pillow
+
       - name: Publicar en Instagram + Facebook y Commitar
         shell: bash
         env:
@@ -37,19 +40,30 @@ jobs:
             echo "=== $id ==="
             if [ -z "$TOKEN" ]; then echo "No TOKEN"; exit 1; fi
             url=$(jq -r '.image_url // empty' "$f")
-            # Generar imagen si no existe
-            imgpath="assets/${id}"
-            case "$id" in *-*) ext="${id##*-}"; imgpath="assets/${id%?????}-${ext}.jpg" ;; esac
             if ! curl -sf -o /dev/null "$url"; then
-              echo "Imagen no existe, generando placeholder..."
-              mkdir -p assets
-              convert -size 1080x1080 gradient:'#1A1A2E-#E94560' -font Helvetica -pointsize 48 \
-                -gravity center -fill white -annotate 0 "NexoIA\n${id}" \
-                "${imgpath}" 2>/dev/null || convert -size 1080x1080 xc:'#1A1A2E' \
-                -gravity center -fill white -pointsize 48 -annotate 0 "NexoIA ${id}" "${imgpath}"
-              jq --arg u "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/${imgpath}" \
-                '.image_url = $u' "$f" > /tmp/tmp.json && mv /tmp/tmp.json "$f"
-              url=$(jq -r '.image_url // empty' "$f")
+              echo "Imagen no existe en GitHub, generando placeholder..."
+              imgbase="${id%%-*}"
+              imgnum="${id##*-}"
+              fallback_num=$(printf "%03d" $((10#$imgnum - 100)))
+              fallback="assets/${imgbase}-${fallback_num}.jpg"
+              if curl -sf -o /dev/null "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/${fallback}"; then
+                url="https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/${fallback}"
+                echo "Usando imagen fallback: ${fallback}"
+              else
+                python3 -c "
+                from PIL import Image, ImageDraw, ImageFont
+                img = Image.new('RGB', (1080, 1080), color=(26,26,46))
+                d = ImageDraw.Draw(img)
+                d.rectangle([(40,40),(1040,1040)], outline=(233,69,96), width=4)
+                try: fnt = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 72)
+                except: fnt = ImageFont.load_default()
+                d.text((540,480), 'NEXOIA', fill=(233,69,96), anchor='mm', font=fnt)
+                d.text((540,580), '${id}', fill=(255,255,255), anchor='mm', font=fnt)
+                img.save('assets/${id}.jpg')
+                " 2>/dev/null
+                url="https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/${id}.jpg"
+              fi
+              jq --arg u "$url" '.image_url = $u' "$f" > /tmp/tmp.json && mv /tmp/tmp.json "$f"
             fi
             ig=$(jq -r '.instagram_id // ""' "$f")
             cat=$(jq -r '.contenido.caption // ""' "$f")
