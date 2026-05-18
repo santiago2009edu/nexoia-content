@@ -27,7 +27,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           FB_PAGE_ID: "1073392185865577"
         run: |
-          set -x
+          set -e
           mkdir -p content/published
           BASE=https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets
 
@@ -51,6 +51,8 @@ jobs:
             fi
           }
 
+          FAILED=0
+
           for f in content/pending/*.json; do
             [ -f "$f" ] || continue
             s=$(jq -r '.estado' "$f") && ([ "$s" = "approved" ] || [ "$s" = "pending" ]) || continue
@@ -60,29 +62,41 @@ jobs:
             if [ -z "$TOKEN" ]; then echo "No TOKEN"; exit 1; fi
             url=$(img_for "$id")
             jq --arg u "$url" '.image_url = $u' "$f" > /tmp/tmp.json && mv /tmp/tmp.json "$f"
-            ig=$(jq -r '.instagram_id // ""' "$f")
             cat=$(jq -r '.contenido.caption // ""' "$f")
             htg=$(jq -r '.contenido.hashtags // [] | join(" ")' "$f")
             cap=$(printf "%s\n\n%s" "$cat" "$htg")
 
-            jq -n --arg c "$cap" --arg u "$url" --arg t "$TOKEN" '{caption:$c, media_type:"IMAGE", image_url:$u, access_token:$t}' \
-              | curl -s -X POST "https://graph.facebook.com/v22.0/17841439116274856/media" -d @- > /tmp/ig_resp.json
-            ig_id=$(jq -r '.id // empty' /tmp/ig_resp.json)
-            echo "Instagram container: $(cat /tmp/ig_resp.json)"
-            if [ -n "$ig_id" ] && [ "$ig_id" != "null" ]; then
-              sleep 3
-              jq -n --arg c "$ig_id" --arg t "$TOKEN" '{creation_id:$c, access_token:$t}' \
-                | curl -s -X POST "https://graph.facebook.com/v22.0/17841439116274856/media_publish" -d @- > /tmp/ig_pub.json
-              echo "Instagram publish: $(cat /tmp/ig_pub.json)"
+            echo "--- Creando container IG ---"
+            CREATE_RESP=$(jq -n --arg c "$cap" --arg u "$url" --arg t "$TOKEN" '{caption:$c, media_type:"IMAGE", image_url:$u, access_token:$t}' \
+              | curl -sf -X POST "https://graph.facebook.com/v22.0/17841439116274856/media" -d @- 2>&1) || { echo "ERROR al crear container: $CREATE_RESP"; FAILED=$((FAILED+1)); continue; }
+            echo "Response: $CREATE_RESP"
+            ig_id=$(echo "$CREATE_RESP" | jq -r '.id // empty')
+            if [ -z "$ig_id" ] || [ "$ig_id" = "null" ]; then
+              echo "ERROR: no se obtuvo ig_id. Respuesta: $CREATE_RESP"
+              FAILED=$((FAILED+1))
+              continue
             fi
 
+            echo "--- Publicando container IG ($ig_id) ---"
+            sleep 3
+            PUB_RESP=$(jq -n --arg c "$ig_id" --arg t "$TOKEN" '{creation_id:$c, access_token:$t}' \
+              | curl -sf -X POST "https://graph.facebook.com/v22.0/17841439116274856/media_publish" -d @- 2>&1) || { echo "ERROR al publicar en IG: $PUB_RESP"; FAILED=$((FAILED+1)); continue; }
+            echo "Publish response: $PUB_RESP"
+
+            echo "--- Publicando en Facebook ---"
             fb_msg=$(printf "%s\n\n%s\n🔗 https://nexoia-agency.github.io" "$cat" "$htg")
-            jq -n --arg u "$url" --arg m "$fb_msg" --arg t "$TOKEN" '{url:$u, message:$m, access_token:$t}' \
-              | curl -s -X POST "https://graph.facebook.com/v22.0/${FB_PAGE_ID}/photos" -d @- > /tmp/fb_resp.json
-            echo "Facebook photo: $(cat /tmp/fb_resp.json)"
+            FB_RESP=$(jq -n --arg u "$url" --arg m "$fb_msg" --arg t "$TOKEN" '{url:$u, message:$m, access_token:$t}' \
+              | curl -sf -X POST "https://graph.facebook.com/v22.0/${FB_PAGE_ID}/photos" -d @- 2>&1) || { echo "ERROR al publicar en FB: $FB_RESP"; }
+            echo "Facebook response: $FB_RESP"
 
             mv "$f" "content/published/$id.json"
+            echo "=== $id COMPLETADO ==="
           done
+
+          if [ "$FAILED" -gt 0 ]; then
+            echo "WARNING: $FAILED posts fallaron"
+          fi
+
           git config user.name "NexoIA Bot"
           git config user.email "bot@nexoia.cali"
           git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/santiago2009edu/nexoia-content
