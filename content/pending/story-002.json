@@ -1,0 +1,46 @@
+{
+    "id":  "story-002",
+    "tipo":  "story",
+    "fecha_generacion":  "2026-05-16",
+    "fecha_propuesta_publicacion":  "2026-05-22",
+    "hora_propuesta":  "18:30",
+    "estado":  "approved",
+    "plataforma":  "instagram",
+    "contenido":  {
+                      "caption":  "Tips para mejorar tu Instagram SIN pagar anuncios:\n\n1. Publica todos los días\n2. Usa Reels (tienen 4x más alcance)\n3. Responde comentarios en 1ra hora\n4. Usa historias con encuestas\n5. Bio clara con CTA\n\n¿Cuál te falta aplicar?\n\n#NexoIA #TipsInstagram #MarketingGratis",
+                      "hashtags":  [
+                                       "#NexoIA",
+                                       "#TipsInstagram",
+                                       "#MarketingGratis"
+                                   ],
+                      "visual":  {
+                                     "descripcion":  "Story 9:16. Fondo #06100A. Lista vertical numerada con 5 tips. Cada tip con un icono y texto en blanco. Barra verde decorativa al costado. Logo NexoIA arriba.",
+                                     "tamano":  "1080x1920",
+                                     "colores":  {
+                                                     "fondo":  "#06100A",
+                                                     "texto":  "#EFF9F4",
+                                                     "acento":  "#4DBA87"
+                                                 },
+                                     "elementos":  [
+                                                       "Lista numerada",
+                                                       "5 tips con iconos",
+                                                       "Logo NexoIA",
+                                                       "Barra decorativa"
+                                                   ]
+                                 },
+                      "story_elementos":  {
+                                              "tipo":  "lista",
+                                              "items":  [
+                                                            "Publica todos los días",
+                                                            "Usa Reels (4x más alcance)",
+                                                            "Responde comentarios",
+                                                            "Historias con encuestas",
+                                                            "Bio clara con CTA"
+                                                        ]
+                                          }
+                  },
+    "image_urls":  [
+                       "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/story-002.jpg"
+                   ],
+    "image_url":  "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/story-002.jpg"
+}

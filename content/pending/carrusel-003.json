@@ -1,0 +1,52 @@
+{
+    "id":  "carrusel-003",
+    "tipo":  "carrusel",
+    "fecha_generacion":  "2026-05-16",
+    "fecha_propuesta_publicacion":  "2026-05-28",
+    "hora_propuesta":  "18:30",
+    "estado":  "approved",
+    "plataforma":  "instagram",
+    "contenido":  {
+                      "caption":  "¿Qué hace exactamente NexoIA por tu negocio? 🤖\n\nDesglosamos nuestro servicio mes a mes:\n\n📸 20+ POSTS DISEÑADOS CON IA\nCada post tiene: imagen profesional + caption escrito por IA + hashtags estratégicos para Cali.\n\n🎬 REELS E HISTORIAS\nContenido en video corto con tendencias actuales.\n\n💬 GESTIÓN DE DMs\nRespondemos consultas, agendamos citas, filtramos clientes.\n\n📊 REPORTE MENSUAL\nTe mostramos alcance, seguidores nuevos y clientes que llegaron por redes.\n\nTodo por $280K/mes (Plan Activo).\nSin contratos. Sin cláusulas de permanencia.\n\n📩 nexoia.cali@gmail.com\n\n#NexoIA #ServiciosDigitales #MarketingCali #GestionDeRedes #IAParaNegocios",
+                      "hashtags":  [
+                                       "#NexoIA",
+                                       "#ServiciosDigitales",
+                                       "#MarketingCali",
+                                       "#GestionDeRedes",
+                                       "#IAParaNegocios"
+                                   ],
+                      "visual":  {
+                                     "descripcion":  "Carrusel de 6 slides. Portada + 4 slides cada uno explicando un servicio con icono + CTA final. Fondo oscuro con acentos verdes.",
+                                     "tamano":  "1080x1080",
+                                     "colores":  {
+                                                     "fondo":  "#06100A",
+                                                     "texto":  "#EFF9F4",
+                                                     "acento":  "#4DBA87"
+                                                 },
+                                     "elementos":  [
+                                                       "Portada titulo",
+                                                       "4 slides de servicios con iconos",
+                                                       "Slide de precio",
+                                                       "CTA final"
+                                                   ]
+                                 },
+                      "carrusel_slides":  [
+                                              "PORTADA: \u0027¿Qué hace NexoIA por tu negocio? (Desglose completo)\u0027",
+                                              "SERVICIO 1: 📸 \u002720+ posts/mes con IA\u0027 — Icono de galería. \u0027Diseñados en Canva, captions con Claude IA, hashtags locales.\u0027",
+                                              "SERVICIO 2: 🎬 \u0027Reels e Historias\u0027 — Icono de video. \u0027Contenido en tendencia, editado con CapCut IA.\u0027",
+                                              "SERVICIO 3: 💬 \u0027Gestión de DMs\u0027 — Icono de chat. \u0027Respondemos por ti, agendamos, filtramos clientes.\u0027",
+                                              "SERVICIO 4: 📊 \u0027Reporte mensual\u0027 — Icono de gráfico. \u0027Resultados claros: alcance, seguidores, conversiones.\u0027",
+                                              "CTA: \u0027Todo desde $280K/mes. Sin permanencia. nexoia.cali@gmail.com\u0027"
+                                          ]
+                  },
+    "image_urls":  [
+                       "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-003-slide-1.jpg",
+                       "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-003-slide-2.jpg",
+                       "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-003-slide-3.jpg",
+                       "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-003-slide-4.jpg",
+                       "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-003-slide-5.jpg",
+                       "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-003-slide-6.jpg"
+                   ],
+    "image_url":  "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-003-slide-1.jpg",
+    "_trigger":  "00:15:34"
+}
