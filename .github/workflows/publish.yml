@@ -31,11 +31,26 @@ jobs:
           mkdir -p content/published
           for f in content/pending/*.json; do
             [ -f "$f" ] || continue
-            s=$(jq -r '.estado' "$f") && [ "$s" = "approved" ] || continue
+            s=$(jq -r '.estado' "$f") && ([ "$s" = "approved" ] || [ "$s" = "pending" ]) || continue
+            if [ "$s" = "pending" ]; then jq '.estado = "approved"' "$f" > /tmp/tmp.json && mv /tmp/tmp.json "$f"; fi
             id=$(jq -r '.id' "$f")
             echo "=== $id ==="
             if [ -z "$TOKEN" ]; then echo "No TOKEN"; exit 1; fi
             url=$(jq -r '.image_url // empty' "$f")
+            # Generar imagen si no existe
+            imgpath="assets/${id}"
+            case "$id" in *-*) ext="${id##*-}"; imgpath="assets/${id%?????}-${ext}.jpg" ;; esac
+            if ! curl -sf -o /dev/null "$url"; then
+              echo "Imagen no existe, generando placeholder..."
+              mkdir -p assets
+              convert -size 1080x1080 gradient:'#1A1A2E-#E94560' -font Helvetica -pointsize 48 \
+                -gravity center -fill white -annotate 0 "NexoIA\n${id}" \
+                "${imgpath}" 2>/dev/null || convert -size 1080x1080 xc:'#1A1A2E' \
+                -gravity center -fill white -pointsize 48 -annotate 0 "NexoIA ${id}" "${imgpath}"
+              jq --arg u "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/${imgpath}" \
+                '.image_url = $u' "$f" > /tmp/tmp.json && mv /tmp/tmp.json "$f"
+              url=$(jq -r '.image_url // empty' "$f")
+            fi
             ig=$(jq -r '.instagram_id // ""' "$f")
             cat=$(jq -r '.contenido.caption // ""' "$f")
             htg=$(jq -r '.contenido.hashtags // [] | join(" ")' "$f")
