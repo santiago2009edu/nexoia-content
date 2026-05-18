@@ -1,0 +1,29 @@
+{
+  "id": "story-104",
+  "tipo": "story",
+  "fecha_generacion": "2026-05-17",
+  "fecha_propuesta_publicacion": "2026-05-25",
+  "hora_propuesta": "10:00",
+  "estado": "approved",
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/story-001.jpg",
+  "caption": "Tu marca personal es lo que Google dice de ti cuando no estás presente.\n\nConstruye tu presencia digital con NexoIA.\n\nDiagnóstico gratis.",
+  "contenido": {
+    "caption": "Tu marca = lo que Google dice de ti 🔍",
+    "hashtags": [
+      "MarcaPersonal",
+      "PresenciaDigital",
+      "NexoIA",
+      "Cali"
+    ],
+    "visual": {
+      "descripcion": "Story con diseño de resultados de búsqueda de Google mostrando un perfil optimizado.",
+      "tamano": "1080x1920 (9:16)",
+      "colores": [
+        "#06100A",
+        "#4DBA87",
+        "#4285F4",
+        "#EFF9F4"
+      ]
+    }
+  }
+}

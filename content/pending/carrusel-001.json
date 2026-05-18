@@ -1,0 +1,54 @@
+{
+  "id": "carrusel-001",
+  "tipo": "carrusel",
+  "fecha_generacion": "2026-05-16",
+  "fecha_propuesta_publicacion": "2026-05-19",
+  "hora_propuesta": "18:30",
+  "estado": "approved",
+  "plataforma": "instagram",
+  "contenido": {
+    "caption": "¿Tu negocio en Cali está invisible en Instagram? 🚨\n\nAquí tienes 5 errores que probablemente estás cometiendo (y cómo solucionarlos):\n\n1️⃣ Publicar solo cuando te acuerdas\n2️⃣ Fotos oscuras o mal encuadradas\n3️⃣ No responder mensajes directos\n4️⃣ Bio sin información clara\n5️⃣ No tener estrategia de contenido\n\nLa buena noticia: los solucionamos todos con IA.\n20+ posts/mes, diseñados y publicados por nosotros.\n\n📩 nexoia.cali@gmail.com\n\nGuarda este post 🔖\n\n#5Errores #InstagramParaNegocios #NexoIA #Cali #MarketingDigitalColombia",
+    "hashtags": [
+      "#5Errores",
+      "#InstagramParaNegocios",
+      "#NexoIA",
+      "#Cali",
+      "#MarketingDigitalColombia",
+      "#TipsInstagram"
+    ],
+    "visual": {
+      "descripcion": "Carrusel de 5 slides + portada y CTA. Fondo oscuro general #06100A, acentos verdes #4DBA87, texto blanco #EFF9F4. Estilo editorial limpio.",
+      "tamano": "1080x1080",
+      "colores": {
+        "fondo": "#06100A",
+        "texto": "#EFF9F4",
+        "acento": "#4DBA87"
+      },
+      "elementos": [
+        "Portada con título",
+        "5 slides de error",
+        "CTA final"
+      ]
+    },
+    "carrusel_slides": [
+      "PORTADA: '5 errores que hacen invisible tu negocio en Instagram' con logo NexoIA arriba",
+      "ERROR 1: 'Publicar solo cuando te acuerdas' — El algoritmo premia consistencia. Icono de calendario tachado.",
+      "ERROR 2: 'Fotos oscuras, mal encuadradas' — La primera impresión lo es todo. Icono de cámara.",
+      "ERROR 3: 'Ignorar los mensajes directos' — Cada DM es una venta potencial. Icono de mensaje.",
+      "ERROR 4: 'Bio sin información clara' — 3 segundos para enganchar. Icono de perfil.",
+      "ERROR 5: 'No tener estrategia' — Sin plan no hay crecimiento. Icono de gráfico.",
+      "CTA: 'Nosotros solucionamos estos 5 errores por ti. nexoia.cali@gmail.com'"
+    ]
+  },
+  "image_urls": [
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-1.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-2.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-3.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-4.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-5.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-6.jpg",
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-7.jpg"
+  ],
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/carrusel-001-slide-1.jpg",
+  "_trigger": "00:13:34"
+}

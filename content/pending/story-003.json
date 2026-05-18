@@ -1,0 +1,45 @@
+{
+  "id": "story-003",
+  "tipo": "story",
+  "fecha_generacion": "2026-05-16",
+  "fecha_propuesta_publicacion": "2026-05-24",
+  "hora_propuesta": "18:30",
+  "estado": "approved",
+  "plataforma": "instagram",
+  "contenido": {
+    "caption": "¿Cuál es tu mayor dolor con las redes sociales?\n\nA) No tengo tiempo 🕐\nB) No sé qué publicar 🤔\nC) No veo resultados 📉\nD) Todo lo anterior 😅\n\nRespeta y te decimos cómo solucionarlo.\n\n#NexoIA #EncuestaRedes #Cali",
+    "hashtags": [
+      "#NexoIA",
+      "#EncuestaRedes",
+      "#Cali"
+    ],
+    "visual": {
+      "descripcion": "Story 9:16. Fondo verde degradado #06100A a #112218. Arriba logo NexoIA. Pregunta central en Fraunces itálica blanca. 4 opciones con botones interactivos. CTA abajo.",
+      "tamano": "1080x1920",
+      "colores": {
+        "fondo": "#06100A",
+        "texto": "#EFF9F4",
+        "acento": "#4DBA87"
+      },
+      "elementos": [
+        "Encuesta interactiva",
+        "4 opciones A/B/C/D",
+        "Logo NexoIA",
+        "Pregunta central"
+      ]
+    },
+    "story_elementos": {
+      "tipo": "encuesta",
+      "opciones": [
+        "No tengo tiempo 🕐",
+        "No sé qué publicar 🤔",
+        "No veo resultados 📉",
+        "Todo lo anterior 😅"
+      ]
+    }
+  },
+  "image_urls": [
+    "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/story-003.jpg"
+  ],
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/story-003.jpg"
+}

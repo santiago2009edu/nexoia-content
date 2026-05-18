@@ -1,0 +1,27 @@
+{
+  "id": "story-101",
+  "tipo": "story",
+  "fecha_generacion": "2026-05-17",
+  "fecha_propuesta_publicacion": "2026-05-19",
+  "hora_propuesta": "19:00",
+  "estado": "approved",
+  "image_url": "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/story-001.jpg",
+  "caption": "¿Sabías que publicar entre 6-8pm en Cali da más alcance? ⏰\n\nPublica cuando tu audiencia está libre.",
+  "contenido": {
+    "caption": "Mejor hora para publicar en Cali: 6-8pm ⏰",
+    "hashtags": [
+      "HorariosCali",
+      "TipsInstagram",
+      "NexoIA"
+    ],
+    "visual": {
+      "descripcion": "Story con un reloj marcando 6pm, texto grande 'MEJOR HORARIO' con estadísticas de alcance.",
+      "tamano": "1080x1920 (9:16)",
+      "colores": [
+        "#06100A",
+        "#4DBA87",
+        "#112218"
+      ]
+    }
+  }
+}
