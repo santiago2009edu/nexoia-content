@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: '*/30 * * * *'
   workflow_dispatch:
+    inputs:
+      ig_token:
+        description: 'Token de Instagram (opcional - si no se usa, toma el secreto)'
+        required: false
+        type: string
   push:
     branches: [main]
     paths:
@@ -23,7 +28,7 @@ jobs:
       - name: Publicar en Instagram + Facebook y Commitar
         shell: bash
         env:
-          TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
+          TOKEN: ${{ inputs.ig_token || secrets.INSTAGRAM_TOKEN }}
           GH_TOKEN: ${{ github.token }}
           FB_PAGE_ID: "1073392185865577"
         run: |
