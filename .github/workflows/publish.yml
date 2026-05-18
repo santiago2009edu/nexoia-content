@@ -20,9 +20,6 @@ jobs:
         with:
           token: ${{ github.token }}
 
-      - name: Instalar dependencias
-        run: pip install Pillow
-
       - name: Publicar en Instagram + Facebook y Commitar
         shell: bash
         env:
@@ -32,6 +29,28 @@ jobs:
         run: |
           set -x
           mkdir -p content/published
+          BASE=https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets
+
+          img_for() {
+            local id="$1"
+            local tipo="${id%%-*}"
+            local num="${id##*-}"
+            local fallback
+            case "$tipo" in
+              post)     fallback="$BASE/post-001.jpg" ;;
+              carrusel) fallback="$BASE/carrusel-001-slide-1.jpg" ;;
+              story)    fallback="$BASE/story-001.jpg" ;;
+              reel)     fallback="$BASE/reel-001.jpg" ;;
+              *)        fallback="$BASE/post-001.jpg" ;;
+            esac
+            local wanted="$BASE/${id}.jpg"
+            if curl -sf -o /dev/null "$wanted"; then
+              echo "$wanted"
+            else
+              echo "$fallback"
+            fi
+          }
+
           for f in content/pending/*.json; do
             [ -f "$f" ] || continue
             s=$(jq -r '.estado' "$f") && ([ "$s" = "approved" ] || [ "$s" = "pending" ]) || continue
@@ -39,38 +58,13 @@ jobs:
             id=$(jq -r '.id' "$f")
             echo "=== $id ==="
             if [ -z "$TOKEN" ]; then echo "No TOKEN"; exit 1; fi
-            url=$(jq -r '.image_url // empty' "$f")
-            if ! curl -sf -o /dev/null "$url"; then
-              echo "Imagen no existe en GitHub, generando placeholder..."
-              imgbase="${id%%-*}"
-              imgnum="${id##*-}"
-              fallback_num=$(printf "%03d" $((10#$imgnum - 100)))
-              fallback="assets/${imgbase}-${fallback_num}.jpg"
-              if curl -sf -o /dev/null "https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/${fallback}"; then
-                url="https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/${fallback}"
-                echo "Usando imagen fallback: ${fallback}"
-              else
-                python3 -c "
-                from PIL import Image, ImageDraw, ImageFont
-                img = Image.new('RGB', (1080, 1080), color=(26,26,46))
-                d = ImageDraw.Draw(img)
-                d.rectangle([(40,40),(1040,1040)], outline=(233,69,96), width=4)
-                try: fnt = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 72)
-                except: fnt = ImageFont.load_default()
-                d.text((540,480), 'NEXOIA', fill=(233,69,96), anchor='mm', font=fnt)
-                d.text((540,580), '${id}', fill=(255,255,255), anchor='mm', font=fnt)
-                img.save('assets/${id}.jpg')
-                " 2>/dev/null
-                url="https://raw.githubusercontent.com/santiago2009edu/nexoia-content/main/assets/${id}.jpg"
-              fi
-              jq --arg u "$url" '.image_url = $u' "$f" > /tmp/tmp.json && mv /tmp/tmp.json "$f"
-            fi
+            url=$(img_for "$id")
+            jq --arg u "$url" '.image_url = $u' "$f" > /tmp/tmp.json && mv /tmp/tmp.json "$f"
             ig=$(jq -r '.instagram_id // ""' "$f")
             cat=$(jq -r '.contenido.caption // ""' "$f")
             htg=$(jq -r '.contenido.hashtags // [] | join(" ")' "$f")
             cap=$(printf "%s\n\n%s" "$cat" "$htg")
 
-            # Instagram container
             jq -n --arg c "$cap" --arg u "$url" --arg t "$TOKEN" '{caption:$c, media_type:"IMAGE", image_url:$u, access_token:$t}' \
               | curl -s -X POST "https://graph.facebook.com/v22.0/17841439116274856/media" -d @- > /tmp/ig_resp.json
             ig_id=$(jq -r '.id // empty' /tmp/ig_resp.json)
@@ -79,11 +73,9 @@ jobs:
               sleep 3
               jq -n --arg c "$ig_id" --arg t "$TOKEN" '{creation_id:$c, access_token:$t}' \
                 | curl -s -X POST "https://graph.facebook.com/v22.0/17841439116274856/media_publish" -d @- > /tmp/ig_pub.json
-              ig_pub_id=$(jq -r '.id // empty' /tmp/ig_pub.json)
               echo "Instagram publish: $(cat /tmp/ig_pub.json)"
             fi
 
-            # Facebook Page cross-post con foto
             fb_msg=$(printf "%s\n\n%s\n🔗 https://nexoia-agency.github.io" "$cat" "$htg")
             jq -n --arg u "$url" --arg m "$fb_msg" --arg t "$TOKEN" '{url:$u, message:$m, access_token:$t}' \
               | curl -s -X POST "https://graph.facebook.com/v22.0/${FB_PAGE_ID}/photos" -d @- > /tmp/fb_resp.json
@@ -104,5 +96,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          echo "Workflow falló. Revisa los logs en:"
+          echo "Workflow fallido. Logs:"
           echo "https://github.com/santiago2009edu/nexoia-content/actions"
